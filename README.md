@@ -1,6 +1,5 @@
-# Test-SFML
+# HackUSU
 
-Test/scratch world in SFML preperations for the hackathon
 
 ------|   c++/general  |--------------------------------
 C:\Users\scott\Documents\code\Cpp\Libraries\SFML-2.5.1\SFML-2.5.1\include
