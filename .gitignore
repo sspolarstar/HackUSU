@@ -25,7 +25,8 @@
 *.la
 *.a
 *.lib
-
+src/lib/*
+src/include/*
 # Executables
 *.exe
 *.out
