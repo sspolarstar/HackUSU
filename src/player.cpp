@@ -36,9 +36,7 @@ void Player::update(float deltaTime){
         y = this->speed * +deltaTime;
         //move Down
     }
-    std::cout<< x <<std::endl;
     this->move({x,y});
-    //std::cout<< newPos.x << newPos.y<< std::endl;
 
 }   
 

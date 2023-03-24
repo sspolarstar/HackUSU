@@ -12,10 +12,12 @@ class Player{
         void draw(sf::RenderWindow &window);
         void move(Position pos);
         Position getPosition();
+        bool hasText = 1;
     private:
         float speed = 100;
         Position position;
         sf::RectangleShape body;
+        
         
 
 
