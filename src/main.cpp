@@ -124,7 +124,7 @@ int main(){
             case 289:
                 if(p_x < 204 && p_x > 200){
                     if(!player.gotRiddler){
-                        player.riddlerScene(font, window, {player.getPosition().x  - 248, player.getPosition().y  + 200});
+                        player.riddlerScene(font, window, {player.getPosition().x  - 248, player.getPosition().y -200});
                     }
                 }
                 break;
