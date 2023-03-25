@@ -16,9 +16,12 @@ int main(){
     sf::Text timerText;
     sf::Font font;    
     ///////////////////////CLASSES
-    sf::RenderWindow window(sf::VideoMode(500, 500), "Test");
+    sf::RenderWindow window(sf::VideoMode(500, 500), "Graduation");
     sf::View view(sf::FloatRect(0, 0, 500, 500));
-    Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2));
+
+    sf::Texture texture;
+    texture.loadFromFile("assets/img/purpShirt.png");
+    Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), texture, {4,3});
     Enemy big_bad(0.0,3.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80);    
     
     MapManager mapManager;
