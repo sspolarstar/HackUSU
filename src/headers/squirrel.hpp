@@ -25,10 +25,11 @@ class Squirrel{
         void update(float deltaTime, Player &target,
                     float radius, MapManager &mapRef);
         void draw(sf::RenderWindow &window);
+        void defeat(sf::Font& font, sf::RenderWindow&, sf::Vector2f pos);
         Animation animation;
         // debugging functionality
         bool showHitBox = false;
-
+        bool seenDefeat = false;
     private:
         // position variables
         Position position;
@@ -40,6 +41,7 @@ class Squirrel{
 
         // enemy information variables
         bool alive;
+        
         int health;
         std::string identifier;
 };

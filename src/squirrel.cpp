@@ -160,3 +160,31 @@ float check_sign(float val) {
         return -1.0;
     }
 }
+
+
+void Squirrel::defeat(sf::Font& font, sf::RenderWindow& window, sf::Vector2f pos){
+    this->seenDefeat = true;
+    sf::RectangleShape textBox;
+    textBox.setFillColor(sf::Color(0,0,0,125));
+    textBox.setSize({480, 65});
+    textBox.setOutlineColor(sf::Color::White);
+    textBox.setOutlineThickness(2);
+    textBox.setPosition({pos.x, pos.y - 45});
+    window.draw(textBox);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition({pos.x + 10, pos.y - 35});
+    text.setString("PLACEHOLDER \npress Enter to Continue.");
+    text.setFillColor(sf::Color(255,255,255,255));
+    window.draw(text);
+
+    window.display();
+    while(1){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+            break;
+        }
+    }
+
+}

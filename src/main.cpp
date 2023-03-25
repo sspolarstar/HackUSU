@@ -24,7 +24,7 @@ int main(){
 
     sf::Texture sqlTexture;
     sqlTexture.loadFromFile("assets/img/squrrills.png");
-    Squirrel sql(95*CELL_SIZE, 58*CELL_SIZE, sf::Vector2f(CELL_SIZE,CELL_SIZE), 80, sqlTexture, {4,3});    
+    Squirrel sql(95*CELL_SIZE, 58*CELL_SIZE, sf::Vector2f(CELL_SIZE,CELL_SIZE), 120, sqlTexture, {4,3});    
 
     sf::Texture playerTexture;
     playerTexture.loadFromFile("assets/img/purpShirt.png");
@@ -75,6 +75,11 @@ int main(){
         big_bad.draw(window);
         if(!player.gotSql){
             sql.update(deltaTime, player, 200, mapManager);
+        }
+        else {
+            //you beat the squirl.
+            if(!sql.seenDefeat)
+                sql.defeat(font, window, {player.getPosition().x - 248, player.getPosition().y + 200});
         }
         sql.draw(window);
 
