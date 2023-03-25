@@ -29,7 +29,8 @@ enum class Cell {
     concrete,
     flower,
     bush,
-
+    gravel,
+    dirt,
 };
 
 struct Map{

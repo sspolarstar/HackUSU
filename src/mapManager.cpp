@@ -57,14 +57,24 @@ void MapManager::drawMap(sf::RenderWindow & window){
                     sprite.setTextureRect({ 0, 32, 16, 48 });
                     window.draw(sprite);
                     break;
-                case Cell::flower:
+                case Cell::bush:
                     sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
                     sprite.setTextureRect({ 16, 32, 32, 48 });
                     window.draw(sprite);
                     break;
-                case Cell::bush:
+                case Cell::flower:
                     sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
                     sprite.setTextureRect({ 0, 48, 16, 64 });
+                    window.draw(sprite);
+                    break;
+                case Cell::gravel:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 0, 64, 16, 80 });
+                    window.draw(sprite);
+                    break;
+                case Cell::dirt:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 16, 48, 32, 64 });
                     window.draw(sprite);
                     break;
                 default:
@@ -87,7 +97,7 @@ void MapManager::convertMap(std::array<std::string, MAX_MAP_HEIGHT>& mapSketch, 
                     break;
                 case 'p':
                     player.setPosition({float(j*CELL_SIZE), float(i*CELL_SIZE)});
-                    map.map[i][j] = Cell::wall;
+                    map.map[i][j] = Cell::concrete;
                     
                     break;
                 case '8':
@@ -113,6 +123,12 @@ void MapManager::convertMap(std::array<std::string, MAX_MAP_HEIGHT>& mapSketch, 
                     break;
                 case '#':
                     map.map[i][j] = Cell::bush;
+                    break;
+                case 'V':
+                    map.map[i][j] = Cell::gravel;
+                    break;
+                case 'D':
+                    map.map[i][j] = Cell::dirt;
                     break;
                 default:
                     break;
