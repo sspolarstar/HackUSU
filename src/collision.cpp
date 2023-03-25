@@ -27,12 +27,15 @@ Collided map_collision(Position pos, MapManager& mapRef){
 			case DOWN:
                 x = static_cast<int>((pos.x -2)/CELL_SIZE);
 				y = static_cast<int>(((pos.y + CELL_SIZE + 3) / CELL_SIZE));
+				if(pos.y + 20 >= 0 && pos.y < 0){
+					y = 0;
+				}
 				break;
 			}
 			output.wall[a] = Cell::wall == mapRef.map.map[y][x];
-            //std::cout<< (Cell::wall == mapRef.map.map[x][y]) <<std::endl;
 			output.nextArea[a] = Cell::nextArea == mapRef.map.map[y][x];
 		}
+
 	}	
 	return output;
 }
