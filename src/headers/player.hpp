@@ -23,7 +23,7 @@ class Player{
             this->Time_Remaining = newTime;
         }
     private:
-        float Time_Remaining = 5;
+        float Time_Remaining = 15*60;
         float speed = 100;
         Position position;
         sf::RectangleShape body;

@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
+#include <array>
 //static float Time_Remaining = 900000.0 ;
 
 
@@ -17,9 +19,11 @@ constexpr unsigned short MAX_MAP_HEIGHT = 300;
 constexpr unsigned short MAX_MAP_WIDTH = 300;
 constexpr unsigned char CELL_SIZE = 16;
 //constexpr unsigned char
-enum class Cell{
+enum class Cell {
     empty,
     wall,
+    stair,
+    grass,
 };
 
 struct Map{
