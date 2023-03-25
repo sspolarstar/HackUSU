@@ -33,7 +33,8 @@ Collided map_collision(Position pos, MapManager& mapRef){
 				break;
 			}
 			output.wall[a] = Cell::wall == map.map[y][x] || Cell::bush == map.map[y][x] || Cell::flower == map.map[y][x] || Cell::grass == map.map[y][x]
-				|| Cell::dirtbush == map.map[y][x] || Cell::bench == map.map[y][x] || Cell::podium == map.map[y][x];
+				|| Cell::dirtbush == map.map[y][x] || Cell::bench == map.map[y][x] || Cell::podium == map.map[y][x]
+				|| Cell::end == map.map[y][x] || Cell::brick == map.map[y][x];
 
 			//output.nextArea[a] = Cell::stair == map.map[y][x];
 		}
