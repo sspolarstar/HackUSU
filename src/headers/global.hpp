@@ -5,6 +5,7 @@
 #include <string>
 #include <array>
 #include <random>
+#include <functional>
 //static float Time_Remaining = 900000.0 ;
 
 
