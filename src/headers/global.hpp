@@ -23,7 +23,7 @@ enum class Cell{
 };
 
 
-struct collided {
+struct Collided {
 	bool wall[4] = { 0,0,0,0 };
 	bool enemy[4] = { 0,0,0,0 };
 	bool nextArea[4] = { 0,0,0,0 };

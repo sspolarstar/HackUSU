@@ -58,7 +58,7 @@ int main(){
         window.clear();
         
         mapManager.drawMap(window);
-        player.update(deltaTime);
+        player.update(deltaTime, mapManager);
         player.draw(window);
         if(player.hasText){
             window.draw(timerBackground);

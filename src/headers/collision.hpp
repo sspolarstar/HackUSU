@@ -5,4 +5,4 @@
 #include "enemy.hpp"
 #include "mapManager.hpp"
 
-collided map_collision(Position pos, MapManager &mapRef);
+Collided map_collision(Position pos, MapManager &mapRef);
