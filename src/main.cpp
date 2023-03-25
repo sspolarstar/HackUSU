@@ -272,8 +272,8 @@ int main(){
                 }
             } else if ((player_pos.y < 1400) && (player_pos.y > 1250)) {
                 stair_guys.clear();
-                tracker1 = Enemy(440, 1310, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 95, uteTexture, {4,3});
-                tracker2 = Enemy(590, 1310, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 95, byuTexture, {4,3});
+                tracker1 = Enemy(440, 1310, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 98, uteTexture, {4,3});
+                tracker2 = Enemy(590, 1310, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 98, byuTexture, {4,3});
             } else if (player_pos.y > 400) {
 
                 // add more people to the stairs, and randomize their velocity
