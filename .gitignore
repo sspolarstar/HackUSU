@@ -31,10 +31,11 @@ src/include/*
 *.exe
 *.out
 *.app
-.vscode/settings.json
+src/main
+
+# VS Code and CMake settings
 src/main
 out/build
 CMakeLists.txt
-.vscode/c_cpp_properties.json
-build/build.ninja
+.vscode/
 build/

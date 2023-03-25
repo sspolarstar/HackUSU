@@ -16,7 +16,11 @@ class Player{
         void setPosition(float x, float y);
         void update(float deltaTime, MapManager& mapRef);
         void draw(sf::RenderWindow &window);
+
+        // movement functions
         void move(Position pos);
+        void send_back_down_stairs(float level);
+
         Position getPosition();
         void reduceTimeRemaing(float newTime){this->Time_Remaining = this->Time_Remaining - newTime;}
         float getTimeRemaing(){return this->Time_Remaining;}
@@ -55,9 +59,13 @@ class Player{
         bool miniwarn1 = false;
         Animation animation;
 
+        // movement lock for when travelling when doing stairs
+        bool can_move_normally = true;
+        float stair_level = 3360.0;
+
     private:
         float Time_Remaining = 15*60;
-        float speed = 200;
+        float speed = 100;
         bool facesRight = false;
         Position position;
         sf::RectangleShape body;
