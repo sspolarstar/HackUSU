@@ -77,6 +77,36 @@ void MapManager::drawMap(sf::RenderWindow & window){
                     sprite.setTextureRect({ 16, 48, 32, 64 });
                     window.draw(sprite);
                     break;
+                case Cell::t1:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 32, 0, 48, 16 });
+                    window.draw(sprite);
+                    break;
+                case Cell::t2:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 48, 0, 64, 16 });
+                    window.draw(sprite);
+                    break;
+                case Cell::t3:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 64, 0, 80, 16 });
+                    window.draw(sprite);
+                    break;
+                case Cell::t4:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 32, 16, 48, 32 });
+                    window.draw(sprite);
+                    break;
+                case Cell::t5:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 48, 16, 64, 32 });
+                    window.draw(sprite);
+                    break;
+                case Cell::t6:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 64, 16, 80, 32 });
+                    window.draw(sprite);
+                    break;
                 default:
                     break;
             }
@@ -129,6 +159,24 @@ void MapManager::convertMap(std::array<std::string, MAX_MAP_HEIGHT>& mapSketch, 
                     break;
                 case 'D':
                     map.map[i][j] = Cell::dirt;
+                    break;
+                case '1':
+                    map.map[i][j] = Cell::t1;
+                    break;
+                case '2':
+                    map.map[i][j] = Cell::t2;
+                    break;
+                case '3':
+                    map.map[i][j] = Cell::t3;
+                    break;
+                case '4':
+                    map.map[i][j] = Cell::t4;
+                    break;
+                case '5':
+                    map.map[i][j] = Cell::t5;
+                    break;
+                case '6':
+                    map.map[i][j] = Cell::t6;
                     break;
                 default:
                     break;

@@ -4,7 +4,6 @@ Animation::Animation(sf::Texture& texture, sf::Vector2u& imageCount, float switc
     uvRect.width = texture.getSize().x/imageCount.x;
     uvRect.height = (texture.getSize().y + 3) / (imageCount.y);
    
-    std::cout<< uvRect.width << uvRect.height <<std::endl;
     this->switchTime = 0.1f;
     currentImage.x = 0;
     totalTime = 0.0f;
