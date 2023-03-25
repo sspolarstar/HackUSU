@@ -161,14 +161,24 @@ int main(){
         
         //switch statement for the different dialogs and actions
         //playerPosition.setPosition(floor(player.getPosition().x / 10), floor(player.getPosition().y/10));
-        if(player.readyForInput){
+        if(player.readyForInput && player.gotRiddler){
             player.getInput(font, window, {player.getPosition().x - 248, player.getPosition().y -200 });
+        } else if(player.riddleOneCorrect && player.riddleTwoReady && !player.riddleThreeReady){
+            player.riddleTwo(font, window, {player.getPosition().x - 248, player.getPosition().y -200 });
+        } else if(player.riddleOneCorrect && player.riddleTwoCorrect && player.riddleThreeReady && !player.riddleThreeCorrect){
+            player.riddleThree(font, window, {player.getPosition().x - 248, player.getPosition().y -200 });
+        } else if(player.riddleOneCorrect && player.riddleTwoCorrect && player.riddleThreeCorrect && !player.gotRiddlerFinished){
+            player.riddlerFinished(font, window, {player.getPosition().x - 248, player.getPosition().y -200 });
         }
-        p_y = floor(player.getPosition().y/10);
+
+
+
+
+        p_y = floor(player.getPosition().y / 10);
         p_x = floor(player.getPosition().x / 10);
         switch(p_y){
-            case 289:
-                if(p_x < 204 && p_x > 200){
+            case 300:
+                if(p_x < 207 && p_x > 200){
                     if(!player.gotRiddler){
                         player.riddlerScene(font, window, {player.getPosition().x  - 248, player.getPosition().y -200});
                     }
