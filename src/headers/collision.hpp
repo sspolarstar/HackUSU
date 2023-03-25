@@ -1,3 +1,5 @@
+#pragma once
+
 #include "global.hpp"
 #include "player.hpp"
 #include "enemy.hpp"

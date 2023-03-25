@@ -23,7 +23,7 @@ int main(){
     
     
     MapManager mapManager;
-    mapManager.convertMap(mapSketch, player); //get mapSketch from assests/maps/maps.hpp
+    mapManager.convertMap(firstMap, player); //get mapSketch from assests/maps/maps.hpp
 
     /////////////////////functional asset rendering
     if (!font.loadFromFile("assets/fonts/sansation.ttf"))
