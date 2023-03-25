@@ -30,15 +30,33 @@ class Player{
         void introControls(sf::Font &font, sf::RenderWindow& window, Position pos);
         void introInstructions(sf::Font &font, sf::RenderWindow& window, Position pos);
         void getInput(sf::Font &font, sf::RenderWindow& window, Position pos);
+        void riddleTwo(sf::Font &font, sf::RenderWindow& window, Position pos);
+        void riddleThree(sf::Font &font, sf::RenderWindow& window, Position pos);
+        void riddlerFinished(sf::Font &font, sf::RenderWindow& window, Position pos);
+        void trapMisLead(sf::Font &font,sf::RenderWindow& window, Position pos);
+        void meeting(sf::Font &font,sf::RenderWindow& window, Position pos);
+        void halter(sf::Font &font,sf::RenderWindow& window, Position pos);
+        void kickedOutOfGraduation(sf::Font &font, sf::RenderWindow& window, Position pos);
+        void miniwarn(sf::Font &font, sf::RenderWindow& window, Position pos);
     public:
         bool seenIntro = false;
         bool hasText = 1;
         bool gotSql = false;
         bool gotRiddler = false;
+        bool gotRiddlerFinished = false;
         bool updateFlag = false;
         bool seenIntroControls = false;
         bool seenIntroDirections = false;
         bool readyForInput = false;
+        bool riddleOneCorrect = false;
+        bool riddleTwoCorrect = false;
+        bool riddleThreeCorrect = false;
+        bool riddleTwoReady = false;
+        bool riddleThreeReady = false;
+        bool doneTrapMislead = false;
+        bool doneMeeting = false;
+        bool halterDone = false;
+        bool miniwarn1 = false;
         Animation animation;
 
         // movement lock for when travelling when doing stairs
