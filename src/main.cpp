@@ -198,6 +198,23 @@ int main(){
                     stair_guy.move_in_dir(deltaTime, {0,1});
                     stair_guy.draw(window);
                 }
+
+                // collision detection
+                for (auto &stair_guy : stair_guys) {
+                    // check distance between each stair_guy and the player
+                    sf::Vector2f guy_center(stair_guy.getPosition().x + 8, stair_guy.getPosition().y + 16);
+                    sf::Vector2f player_center(player.getPosition().x + 8, player.getPosition().y + 16);
+
+                    // get the distance between the two
+                    auto distance = v2util::magnitude_of((guy_center-player_center));
+
+                    // if the distance is less than 17 (about one cell size) then send them back to the last stair
+                    if (distance <= 17.0) {
+                        // do some kind of send back
+                        player.send_back_down_stairs(3300);
+                        break;
+                    }
+                }
             } else if ((player_pos.y < 2360) && (player_pos.y > 2250)) {
                 stair_guys.clear();
             } 

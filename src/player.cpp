@@ -35,60 +35,77 @@ void Player::update(float deltaTime, MapManager& mapRef){
 	int row;
 	sf::Vector2u rowLocator;
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
-	|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
-	{
-		if (collision_direction.wall[LEFT]) {
-		
-		}
-		else {
-			movement.x -= speed * deltaTime;
-			if (collision_direction.nextArea[LEFT]) {
-				movement.x = movement.x / 3;
+	// Check if character is allowed to move normally (the only case they are not
+	// is when they are being sent back down the stairs)
+	if(this->can_move_normally) {
+		// move the character based on keyboard input
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
+		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+		{
+			if (collision_direction.wall[LEFT]) {
+			
 			}
-			row = 1; //actually left!
-            facesRight = false;
+			else {
+				movement.x -= speed * deltaTime;
+				if (collision_direction.nextArea[LEFT]) {
+					movement.x = movement.x / 3;
+				}
+				row = 1; //actually left!
+				facesRight = false;
+			}
+		}
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
+		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+		{
+			if (collision_direction.wall[RIGHT]) {}
+			else {
+				movement.x += speed * deltaTime;
+				if (collision_direction.nextArea[RIGHT]) {
+					movement.x = movement.x / 3;
+				}
+				row = 1;
+				facesRight = true;
+			}		
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
+		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+		{
+			if (collision_direction.wall[UP]) {}
+			else {
+				movement.y -= speed * deltaTime;
+				row = 2;
+			}
+			if (collision_direction.nextArea[UP]) {
+				movement.y = movement.y / 3;
+			}
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
+		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+		{
+			if (collision_direction.wall[DOWN]) {
+			}
+			else {
+				movement.y += speed * deltaTime;
+				row = 0;
+			}
+			if (collision_direction.nextArea[DOWN]) {
+				movement.y = movement.y / 3;
+			}
+		}
+	} // endif can_move_normally
+	// else if player needs to go back down stairs, move them down the stairs
+	else {
+		movement.y = speed * 1.5 * deltaTime;
+		movement.x = 0;
+		row = 0;
+
+		// if we have reached the level we needed to allow the player to move again
+		if(this->position.y > this->stair_level) {
+			this->can_move_normally = true;
 		}
 	}
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
-	|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
-	{
-		if (collision_direction.wall[RIGHT]) {}
-		else {
-			movement.x += speed * deltaTime;
-			if (collision_direction.nextArea[RIGHT]) {
-				movement.x = movement.x / 3;
-			}
-			row = 1;
-            facesRight = true;
-		}		
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
-	|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-	{
-		if (collision_direction.wall[UP]) {}
-		else {
-			movement.y -= speed * deltaTime;
-			row = 2;
-		}
-		if (collision_direction.nextArea[UP]) {
-			movement.y = movement.y / 3;
-		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
-	|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-	{
-		if (collision_direction.wall[DOWN]) {
-		}
-		else {
-			movement.y += speed * deltaTime;
-			row = 0;
-		}
-		if (collision_direction.nextArea[DOWN]) {
-			movement.y = movement.y / 3;
-		}
-	}
 	//end player movements
     rowLocator = {0,3};
     if(movement.y == 0 && movement.x ==0){
@@ -224,8 +241,10 @@ void Player::introControls(sf::Font& font, sf::RenderWindow& window, Position po
 	std::this_thread::sleep_for(200ms);
 }
 
-
-
+void Player::send_back_down_stairs(float level) {
+	this->can_move_normally = false;
+	this->stair_level = level;
+}
 
 void Player::introInstructions(sf::Font& font, sf::RenderWindow& window, Position pos){
 	seenIntroDirections = true;
