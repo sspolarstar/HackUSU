@@ -66,6 +66,9 @@ int main(){
     //timerBackground.setRotation(12.0);
 
     while (window.isOpen()){
+        if(player.seenIntro){
+            player.introScene(font, window);
+        }
         deltaTime = clock.restart().asSeconds();
         player.reduceTimeRemaing(deltaTime);
         sf::Event event;

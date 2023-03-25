@@ -22,7 +22,9 @@ class Player{
         float getTimeRemaing(){return this->Time_Remaining;}
         void setTimeRemaining(float newTime){this->Time_Remaining = newTime;}
         void riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos);
+        void introScene(sf::Font &font, sf::RenderWindow& window);
     public:
+        bool seenIntro;
         bool hasText = 1;
         bool gotSql = false;
         bool gotRiddler = false;

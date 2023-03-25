@@ -1,7 +1,7 @@
 #include "headers/player.hpp"
 #include "headers/mapManager.hpp"
 #include "headers/collision.hpp"
-
+#include "Script.hpp"
 Player::Player(float x, float y, sf::Vector2f size, sf::Texture& texture, sf::Vector2u imageCount):
 animation(texture, imageCount, 0.2f)
 {
@@ -128,5 +128,36 @@ void Player::riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos)
     text.setFillColor(sf::Color(255,255,255,255));
     window.draw(text);
 
+
+}
+
+
+
+void Player::introScene(sf::Font& font, sf::RenderWindow& window){
+	seenIntro = true;
+	window.clear();
+	sf::RectangleShape textBox;
+    textBox.setFillColor(sf::Color(0,0,0,125));
+    textBox.setSize({400, 400});
+    textBox.setOutlineColor(sf::Color::White);
+    textBox.setOutlineThickness(2);
+    textBox.setPosition({50, 50});
+    window.draw(textBox);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition({65,65});
+    text.setString("PLACEHOLDER \npress Enter to Continue.");
+    text.setFillColor(sf::Color(255,255,255,255));
+    window.draw(text);
+
 	
+
+	window.display();
+	while(1){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			break;
+		}
+	}
 }
