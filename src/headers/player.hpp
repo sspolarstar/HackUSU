@@ -31,12 +31,4 @@ class Player{
         bool facesRight = false;
         Position position;
         sf::RectangleShape body;
-        
-        
-
-private:
-  float Time_Remaining = 100;
-  float speed = 100;
-  Position position;
-  sf::RectangleShape body;
 };

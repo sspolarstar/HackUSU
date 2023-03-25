@@ -3,7 +3,7 @@
 
 Collided map_collision(Position pos, MapManager& mapRef){
     Collided output;
-    //Map mapn = mapRef.getMap();
+    Map map = mapRef.getMap();
 	
     //MakeSure the character is in the array!   
     int x = 0, y = 0;
@@ -32,8 +32,8 @@ Collided map_collision(Position pos, MapManager& mapRef){
 				}
 				break;
 			}
-			output.wall[a] = Cell::wall == mapRef.map.map[y][x];
-			output.nextArea[a] = Cell::nextArea == mapRef.map.map[y][x];
+			output.wall[a] = Cell::wall == map.map[y][x];
+			output.nextArea[a] = Cell::nextArea == map.map[y][x];
 		}
 
 	}	
