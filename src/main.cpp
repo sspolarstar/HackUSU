@@ -25,7 +25,7 @@ int main(){
 
     sf::Texture sqlTexture;
     sqlTexture.loadFromFile("assets/img/squrrills.png");
-    Squirrel sql(1600, 2900, sf::Vector2f(CELL_SIZE,CELL_SIZE), 120, sqlTexture, {4,3});    
+    Squirrel sql(1582.61, 3005.69, sf::Vector2f(CELL_SIZE,CELL_SIZE), 120, sqlTexture, {4,3});    
 
     sf::Texture playerTexture;
     playerTexture.loadFromFile("assets/img/purpShirt.png");
@@ -34,7 +34,7 @@ int main(){
     sf::Texture riddlerTexture;
     riddlerTexture.loadFromFile("assets/img/riddlerman.png");
     sf::RectangleShape riddlerBody;
-    riddlerBody.setPosition({1969.0,2902.9});
+    riddlerBody.setPosition({1969.0, 3013.26});
     riddlerBody.setSize({CELL_SIZE, CELL_SIZE*2});
     riddlerBody.setTexture(&riddlerTexture);
 
