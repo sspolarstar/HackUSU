@@ -33,3 +33,6 @@ src/include/*
 *.app
 .vscode/settings.json
 src/main
+out/build
+CMakeLists.txt
+run.sh

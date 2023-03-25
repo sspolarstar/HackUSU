@@ -5,9 +5,4 @@
 #include "enemy.hpp"
 #include "mapManager.hpp"
 
-
-class Collision{
-    public:
-        Collision(){};
-        Collision(Player& player );
-};
+Collided map_collision(Position pos, MapManager &mapRef);
