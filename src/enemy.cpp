@@ -8,7 +8,8 @@ default constructor
 takes x and y position, a Vector2f size (how many cells are used, see
     main.cpp for details), and speed.
 */
-Enemy::Enemy(float x, float y, sf::Vector2f size, float speed) {
+Enemy::Enemy(float x, float y, sf::Vector2f size, float speed, sf::Texture& texture, sf::Vector2u imageCount):
+animation(texture, imageCount, 0.2f){
     this->position.setPosition(x, y);
     this->body.setPosition({x, y});
     // this->texture = texture;
@@ -16,8 +17,9 @@ Enemy::Enemy(float x, float y, sf::Vector2f size, float speed) {
 
     // default color is white. When player gets too close bad guy turns
     // red
-    this->body.setFillColor(sf::Color(255,255,255));
+    // this->body.setFillColor(sf::Color(255,255,255));
     this->body.setSize(size);
+    this->body.setTexture(&texture);
 }
 
 Enemy::Enemy() {
@@ -70,6 +72,9 @@ void Enemy::move_in_dir(float deltaTime, sf::Vector2f dir) {
     this->position.x += deltaX;
     this->position.y += deltaY;
     this->body.setPosition(this->position.x, this->position.y);
+
+    animation.update(0, deltaTime, false);
+    body.setTextureRect(animation.uvRect);
 }
 
 // move the enemy between two points
@@ -111,7 +116,7 @@ void Enemy::move_from_a_to_b(float deltaTime, Position a, Position b) {
 // radius, the enemy will move toward the player.
 void Enemy::update(float deltaTime, Player &target,
         float radius, MapManager &mapRef) {
-    
+
     // get the direction toward the target
     sf::Vector2f direction(target.getPosition().x - this->position.x,
         target.getPosition().y - this->position.y);
@@ -150,6 +155,25 @@ void Enemy::update(float deltaTime, Player &target,
         this->position.x += deltaX;
         this->position.y += deltaY;
         this->body.setPosition(this->position.x, this->position.y);
+
+        int row = -1;
+        int facesRight = false;
+        if(deltaX < 0)
+            row = 1;
+        
+        if(deltaX > 0){
+            facesRight = true;
+            row = 1;
+        }
+        if(deltaY > 0)
+            row = 0;
+        if(deltaY < 0)
+            row = 2;
+
+        if(deltaY == 0 && deltaX == 0) row = -1;
+        
+        animation.update(row, deltaTime, facesRight);
+	    body.setTextureRect(animation.uvRect);
     }
     // else if the player is not close enough then set the color to white
     else {

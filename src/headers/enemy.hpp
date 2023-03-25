@@ -11,7 +11,7 @@ class MapManager;
 
 class Enemy{
     public:
-        Enemy(float x, float y, sf::Vector2f size, float speed);
+        Enemy(float x, float y, sf::Vector2f size, float speed, sf::Texture& texture, sf::Vector2u imageCount);
         Enemy();
     
     public:
@@ -35,6 +35,9 @@ class Enemy{
 
         // debugging functionality
         bool showHitBox = false;
+
+        // Animation
+        Animation animation;
 
     private:
         // position variables

@@ -32,7 +32,7 @@ int main(){
     std::vector<Enemy> stair_guys(10);
     Enemy tracker1, tracker2;
     std::default_random_engine generator;
-    std::uniform_int_distribution<int> stage_1(1,135);
+    std::uniform_int_distribution<int> stage_1(1,150);
     std::uniform_int_distribution<int> stage_2(60,100);
     auto get_st_x = std::bind ( stage_1, generator );
     auto get_st_s = std::bind ( stage_2, generator );
@@ -167,6 +167,13 @@ int main(){
 
         // Handle stairs segments
         Position player_pos = player.getPosition();
+
+        // set up enemy textures
+        sf::Texture uteTexture;
+        uteTexture.loadFromFile("assets/img/utahbaddies.png");
+        sf::Texture byuTexture;
+        byuTexture.loadFromFile("assets/img/byubaddies.png");
+
         // check if they are in the stairs area
         if ((player_pos.x > 430) && (player_pos.x < 600)) {
             // begin to increment and update the stair counter
@@ -178,11 +185,12 @@ int main(){
                 // if the stairTime is greater than 2 then
                 // add a new person on the stairs and reset the timer
                 // std::cout << stairTime << std::endl;
-                if ((stairTime > 0.5) && (stair_guys.size() < 70)) {
+                if ((stairTime > 0.5) && (stair_guys.size() < 20)) {
 
                     // set this guys starting position
-                    stair_guys.push_back(Enemy((450 + (float)get_st_x()), 2360,
-                        sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80));
+                    stair_guys.push_back(Enemy((435 + (float)get_st_x()), 2360,
+                        sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80, 
+                        uteTexture, {4,3}));
                     
                     // reset the stair time
                     stairTime = 0.0;
@@ -191,8 +199,7 @@ int main(){
                 // render all of these enemies
                 for (auto &stair_guy : stair_guys) {
                     // delete guys who are below screen
-                    if (stair_guy.getPosition().y > (player.getPosition().y + 300) &&
-                    stair_guy.getPosition().y > 3300) {
+                    if (stair_guy.getPosition().y > 3262) {
                         stair_guy.setPosition({stair_guy.getPosition().x, 2360});
                     }
                     stair_guy.move_in_dir(deltaTime, {0,1});
@@ -208,10 +215,11 @@ int main(){
                     // get the distance between the two
                     auto distance = v2util::magnitude_of((guy_center-player_center));
 
-                    // if the distance is less than 17 (about one cell size) then send them back to the last stair
-                    if (distance <= 17.0) {
+                    // if the distance is less than 15 (about one cell size) then send them back to the last stair
+                    if (distance <= 15.0) {
                         // do some kind of send back
-                        player.send_back_down_stairs(3300);
+                        float level = (stair_guy.getPosition().y + 100) > 3360 ? 3360 : (stair_guy.getPosition().y + 100);
+                        player.send_back_down_stairs(level);
                         break;
                     }
                 }
@@ -219,16 +227,17 @@ int main(){
                 stair_guys.clear();
             } 
             // check if they are in stage 2
-            else if (player_pos.y > 1400) {
+            else if (player_pos.y > 1375) {
 
                 // add more people to the stairs, and randomize their velocity
                 if ((stairTime > 0.5) && (stair_guys.size() < 80)) {
                     // get the spawn height
-                    float spawn_height = (player.getPosition().y - 500) > 1400 ? (player.getPosition().y - 500) : 1400;
+                    float spawn_height = (player.getPosition().y - 300) > 1400 ? (player.getPosition().y - 300) : 1400;
 
                     // set this guys starting position
-                    stair_guys.push_back(Enemy((450 + (float)get_st_x()), 1400,
-                        sf::Vector2f(CELL_SIZE,CELL_SIZE*2), (float)get_st_s()));
+                    stair_guys.push_back(Enemy((435 + (float)get_st_x()), spawn_height,
+                        sf::Vector2f(CELL_SIZE,CELL_SIZE*2), (float)get_st_s(),
+                        byuTexture, {4,3}));
                     
                     // reset the stair time
                     stairTime = 0.0;
@@ -238,26 +247,51 @@ int main(){
                 for (auto &stair_guy : stair_guys) {
                     // delete guys who are below screen
                     if (stair_guy.getPosition().y > (player.getPosition().y + 300) &&
-                    stair_guy.getPosition().y > 2360) {
+                    stair_guy.getPosition().y > 2250) {
                         stair_guy.setPosition({stair_guy.getPosition().x, 1400});
                     }
                     stair_guy.move_in_dir(deltaTime, {0,1});
                     stair_guy.draw(window);
                 }
-            } else if ((player_pos.y < 1400) && (player_pos.y > 1200)) {
+
+                // collision detection
+                for (auto &stair_guy : stair_guys) {
+                    // check distance between each stair_guy and the player
+                    sf::Vector2f guy_center(stair_guy.getPosition().x + 8, stair_guy.getPosition().y + 16);
+                    sf::Vector2f player_center(player.getPosition().x + 8, player.getPosition().y + 16);
+
+                    // get the distance between the two
+                    auto distance = v2util::magnitude_of((guy_center-player_center));
+
+                    // if the distance is less than 15 (about one cell size) then send them back to the last stair
+                    if (distance <= 15.0) {
+                        // do some kind of send back
+                        player.send_back_down_stairs(1100);
+                        break;
+                    }
+                }
+            } else if ((player_pos.y < 1400) && (player_pos.y > 1250)) {
                 stair_guys.clear();
-                tracker1 = Enemy(440, 1310, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 90);
-                tracker2 = Enemy(590, 1310, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 90);
+                tracker1 = Enemy(440, 1310, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 95, uteTexture, {4,3});
+                tracker2 = Enemy(590, 1310, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 95, byuTexture, {4,3});
             } else if (player_pos.y > 400) {
 
                 // add more people to the stairs, and randomize their velocity
-                if ((stairTime > 0.5) && (stair_guys.size() < 80)) {
+                if ((stairTime > 0.35) && (stair_guys.size() < 150)) {
                     // get the spawn height
                     float spawn_height = (player.getPosition().y - 300) > 400 ? (player.getPosition().y - 300) : 400;
 
                     // set this guys starting position
-                    stair_guys.push_back(Enemy((450 + (float)get_st_x()), spawn_height,
-                        sf::Vector2f(CELL_SIZE,CELL_SIZE*2), (float)get_st_s()));
+                    // randomize it so that some are byu and some are utes
+                    if (get_st_x() % 2) {
+                        stair_guys.push_back(Enemy((450 + (float)get_st_x()), spawn_height,
+                            sf::Vector2f(CELL_SIZE,CELL_SIZE*2), (float)get_st_s(),
+                            byuTexture, {4,3}));
+                    } else {
+                        stair_guys.push_back(Enemy((450 + (float)get_st_x()), spawn_height,
+                            sf::Vector2f(CELL_SIZE,CELL_SIZE*2), (float)get_st_s(),
+                            uteTexture, {4,3}));
+                    }
                     
                     // reset the stair time
                     stairTime = 0.0;
@@ -274,14 +308,32 @@ int main(){
                     stair_guy.draw(window);
                 }
 
+                // collision detection
+                for (auto &stair_guy : stair_guys) {
+                    // check distance between each stair_guy and the player
+                    sf::Vector2f guy_center(stair_guy.getPosition().x + 8, stair_guy.getPosition().y + 16);
+                    sf::Vector2f player_center(player.getPosition().x + 8, player.getPosition().y + 16);
+
+                    // get the distance between the two
+                    auto distance = v2util::magnitude_of((guy_center-player_center));
+
+                    // if the distance is less than 15 (about one cell size) then send them back to the last stair
+                    if (distance <= 15.0) {
+                        // do some kind of send back
+                        player.send_back_down_stairs(2250);
+                        break;
+                    }
+                }
+
                 // update the tracker players
-                tracker1.update(deltaTime, player, 200, mapManager);
-                tracker2.update(deltaTime, player, 200, mapManager);
+                tracker1.update(deltaTime, player, 250, mapManager);
+                tracker2.update(deltaTime, player, 250, mapManager);
                 tracker1.draw(window);
                 tracker2.draw(window);
             } else {
                 stair_guys.clear();
                 tracker1.setPosition({440, 1210});
+                tracker2.setPosition({580, 1210});
             }
 
         }

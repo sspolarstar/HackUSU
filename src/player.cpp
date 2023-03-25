@@ -96,12 +96,12 @@ void Player::update(float deltaTime, MapManager& mapRef){
 	} // endif can_move_normally
 	// else if player needs to go back down stairs, move them down the stairs
 	else {
-		movement.y = speed * 1.5 * deltaTime;
+		movement.y = speed * 3 * deltaTime;
 		movement.x = 0;
 		row = 0;
 
 		// if we have reached the level we needed to allow the player to move again
-		if(this->position.y > this->stair_level) {
+		if(this->body.getPosition().y > this->stair_level) {
 			this->can_move_normally = true;
 		}
 	}
