@@ -13,6 +13,9 @@ int main(){
     float deltaTime = 0.0f;
     sf::Clock clock;
 
+    int minute;
+    int second;
+
     sf::RectangleShape timerBackground;
     sf::Text textLabel;
     sf::Text timerText;
@@ -92,7 +95,15 @@ int main(){
         window.draw(riddlerBody);
         if(player.hasText){
             window.draw(timerBackground);
-            timerText.setString(std::to_string(player.getTimeRemaing()));
+            minute = (int)player.getTimeRemaing() % 60;
+            second = (int)player.getTimeRemaing() - (minute * 60);
+            if (second < 10) {
+                timerText.setString(std::to_string(minute) + ":" + std::to_string(second));
+            }
+            else {
+                timerText.setString(std::to_string(minute) + ":0" + std::to_string(second));
+            }
+
             window.draw(timerText);
         }
         //end the game if the timer runs out.
