@@ -24,6 +24,12 @@ enum class Cell {
     wall,
     stair,
     grass,
+    Left_rail,
+    Right_rail,
+    concrete,
+    flower,
+    bush,
+
 };
 
 struct Map{
