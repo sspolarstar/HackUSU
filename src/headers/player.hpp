@@ -29,7 +29,7 @@ class Player{
 
     private:
         float Time_Remaining = 15*60;
-        float speed = 100;
+        float speed = 200;
         bool facesRight = false;
         Position position;
         sf::RectangleShape body;

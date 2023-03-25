@@ -38,6 +38,49 @@ int main(){
     riddlerBody.setSize({CELL_SIZE, CELL_SIZE*2});
     riddlerBody.setTexture(&riddlerTexture);
 
+    sf::Texture speaker;
+    speaker.loadFromFile("assets/img/browngirl.png");
+    sf::RectangleShape speakerBody;
+    speakerBody.setPosition({ 2930.76, 3244.76 });
+    speakerBody.setSize({ CELL_SIZE, CELL_SIZE * 2 });
+    speakerBody.setTexture(&speaker);
+    speakerBody.setTextureRect({ (int)speaker.getSize().x, 0,  -1*CELL_SIZE,  2*CELL_SIZE });
+
+    sf::Texture curious;
+    curious.loadFromFile("assets/img/brownhair.png");
+    sf::RectangleShape curiousBody;
+    curiousBody.setPosition({ 2376.03, 3244.5 });
+    curiousBody.setSize({ CELL_SIZE, CELL_SIZE * 2 });
+    curiousBody.setTexture(&curious);
+
+    sf::Texture squirelman;
+    squirelman.loadFromFile("assets/img/blackman.png");
+    sf::RectangleShape squirelmanBody;
+    squirelmanBody.setPosition({ 2778.78, 3185.44 });
+    squirelmanBody.setSize({ CELL_SIZE, CELL_SIZE * 2 });
+    squirelmanBody.setTexture(&squirelman);
+
+    sf::Texture squirelman1;
+    squirelman1.loadFromFile("assets/img/blackman.png");
+    sf::RectangleShape squirelman1Body;
+    squirelman1Body.setPosition({ 1520.46, 3265.21 });
+    squirelman1Body.setSize({ CELL_SIZE, CELL_SIZE * 2 });
+    squirelman1Body.setTexture(&squirelman1);
+
+    sf::Texture lady;
+    lady.loadFromFile("assets/img/blondie.png");
+    sf::RectangleShape ladyBody;
+    ladyBody.setPosition({ 915.261, 3342.05 });
+    ladyBody.setSize({ CELL_SIZE, CELL_SIZE * 2 });
+    ladyBody.setTexture(&lady);
+
+    sf::Texture lady1;
+    lady1.loadFromFile("assets/img/blondie.png");
+    sf::RectangleShape lady1Body;
+    lady1Body.setPosition({ 2847.59, 3264.25 });
+    lady1Body.setSize({ CELL_SIZE, CELL_SIZE * 2 });
+    lady1Body.setTexture(&lady1);
+
     MapManager mapManager;
     mapManager.convertMap(firstMap, player); //get mapSketch from assests/maps/maps.hpp
 
@@ -90,6 +133,13 @@ int main(){
         }
         sql.draw(window);
         window.draw(riddlerBody);
+        window.draw(speakerBody);
+        window.draw(curiousBody);
+        window.draw(squirelmanBody);
+        window.draw(squirelman1Body);
+        window.draw(ladyBody);
+        window.draw(lady1Body);
+
         if(player.hasText){
             window.draw(timerBackground);
             timerText.setString(std::to_string(player.getTimeRemaing()));
