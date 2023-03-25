@@ -8,7 +8,7 @@
 
 
 constexpr unsigned char LEFT  = 0;
-constexpr unsigned char Right = 1;
+constexpr unsigned char RIGHT = 1;
 constexpr unsigned char UP    = 2;
 constexpr unsigned char DOWN  = 3;
 
@@ -32,6 +32,15 @@ enum class Cell {
     gravel,
     dirt,
 };
+
+
+struct Collided {
+	bool wall[4] = { 0,0,0,0 };
+	bool enemy[4] = { 0,0,0,0 };
+	bool nextArea[4] = { 0,0,0,0 };
+
+};
+
 
 struct Map{
     int level;
