@@ -2,12 +2,12 @@
 #include <iostream>
 #include <string>
 
-const std::string intro_story = "Welcome, you are a student at USU about to graduate. The only thing left to do in "
-								"order for you to graduate is attend commencment in Old Main. Before you can attend, "
-								"you must collect the your supplies (cap, gown, etc.). You are currently at the base "
-								"of Old Main hill. Commencement will be held in 15 minutes, you have that much time to "
-								"collect your supplies and make it to the top of Old Main. If you don't make it in time, "
-								"you will not graduate. Good luck!";
+const std::string intro_story = "Welcome, you are a student at USU about \nto graduate. The only thing left to do in \n"
+								"order for you to graduate is attend\n commencment in Old Main. Before you can\n attend, "
+								"you must collect the your supplies \n(cap, gown, etc.). You are currently at the\n base "
+								"of Old Main hill.\n Commencement will be held in 15 minutes,\n you have that much time to "
+								"collect your \n supplies and make it to the top of Old Main.\n If you don't make it in time,\n "
+								"you will not graduate. \nGood luck!";
 const std::string intro_controls = "To move your character, use the 'w', 'a', 's', and 'd' keys on your keyboard. Other "
 								   "controls will be explained to you later in the game.";
 const std::string intro_directions = "You will find all of the necessary supplies for commencement to the right on Old Main "

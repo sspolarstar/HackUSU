@@ -23,12 +23,16 @@ class Player{
         void setTimeRemaining(float newTime){this->Time_Remaining = newTime;}
         void riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos);
         void introScene(sf::Font &font, sf::RenderWindow& window);
+        void introControls(sf::Font &font, sf::RenderWindow& window, Position pos);
+        void introInstructions(sf::Font &font, sf::RenderWindow& window, Position pos);
     public:
-        bool seenIntro;
+        bool seenIntro = false;
         bool hasText = 1;
         bool gotSql = false;
         bool gotRiddler = false;
         bool updateFlag = false;
+        bool seenIntroControls = false;
+        bool seenIntroDirections = false;
         Animation animation;
 
     private:

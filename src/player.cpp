@@ -2,6 +2,7 @@
 #include "headers/mapManager.hpp"
 #include "headers/collision.hpp"
 #include "Script.hpp"
+#include <unistd.h>
 Player::Player(float x, float y, sf::Vector2f size, sf::Texture& texture, sf::Vector2u imageCount):
 animation(texture, imageCount, 0.2f)
 {
@@ -128,7 +129,12 @@ void Player::riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos)
     text.setFillColor(sf::Color(255,255,255,255));
     window.draw(text);
 
-
+		while(1){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			break;
+		}
+	}
+	this->updateFlag = false;
 }
 
 
@@ -148,7 +154,7 @@ void Player::introScene(sf::Font& font, sf::RenderWindow& window){
     text.setFont(font);
     text.setCharacterSize(20);
     text.setPosition({65,65});
-    text.setString("PLACEHOLDER \npress Enter to Continue.");
+    text.setString(intro_story + "\npress Enter to Continue");
     text.setFillColor(sf::Color(255,255,255,255));
     window.draw(text);
 
@@ -160,4 +166,68 @@ void Player::introScene(sf::Font& font, sf::RenderWindow& window){
 			break;
 		}
 	}
+
+	for(int i = 0; i<1000;i++) std::cout<<" " <<std::endl;;
+
+}
+
+void Player::introControls(sf::Font& font, sf::RenderWindow& window, Position pos){
+	seenIntroControls = true;
+	sf::RectangleShape textBox;
+    textBox.setFillColor(sf::Color(0,0,0,175));
+    textBox.setSize({400, 400});
+    textBox.setOutlineColor(sf::Color::White);
+    textBox.setOutlineThickness(2);
+    textBox.setPosition({pos.x + 50, pos.y +50});
+    window.draw(textBox);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition({pos.x + 65, pos.y + 65});
+    text.setString(intro_controls + "\npress Enter to Continue");
+    text.setFillColor(sf::Color(255,255,255,255));
+    window.draw(text);
+
+	
+
+	window.display();
+	while(1){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			break;
+		}
+	}
+	for(int i = 0; i<1000;i++) std::cout<<" " <<std::endl;;
+}
+
+
+
+
+void Player::introInstructions(sf::Font& font, sf::RenderWindow& window, Position pos){
+	seenIntroDirections = true;
+	sf::RectangleShape textBox;
+    textBox.setFillColor(sf::Color(0,0,0,175));
+    textBox.setSize({400, 400});
+    textBox.setOutlineColor(sf::Color::White);
+    textBox.setOutlineThickness(2);
+    textBox.setPosition({pos.x + 50, pos.y +50});
+    window.draw(textBox);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition({pos.x + 65, pos.y + 65});
+    text.setString(intro_directions + "\npress Enter to Continue");
+    text.setFillColor(sf::Color(255,255,255,255));
+    window.draw(text);
+
+	
+
+	window.display();
+	while(1){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			break;
+		}
+	}
+
 }

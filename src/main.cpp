@@ -66,8 +66,16 @@ int main(){
     //timerBackground.setRotation(12.0);
 
     while (window.isOpen()){
-        if(player.seenIntro){
+
+        if(!player.seenIntro){
             player.introScene(font, window);
+            clock.restart().asSeconds();
+        } else if(!player.seenIntroControls){
+            player.introControls(font, window, {player.getPosition().x - 250, player.getPosition().y - 250});
+            clock.restart().asSeconds();
+        } else if(!player.seenIntroDirections){
+            player.introInstructions(font, window, {player.getPosition().x - 250, player.getPosition().y - 250});
+            clock.restart().asSeconds();            
         }
         deltaTime = clock.restart().asSeconds();
         player.reduceTimeRemaing(deltaTime);
@@ -114,7 +122,7 @@ int main(){
         p_x = floor(player.getPosition().x / 10);
         switch(p_y){
             case 289:
-                if(p_x < 202){
+                if(p_x < 204 && p_x > 200){
                     if(!player.gotRiddler){
                         player.riddlerScene(font, window, {player.getPosition().x  - 248, player.getPosition().y  + 200});
                     }
