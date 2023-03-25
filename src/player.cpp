@@ -125,7 +125,7 @@ void Player::riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos)
     text.setFont(font);
     text.setCharacterSize(20);
     text.setPosition({pos.x + 10, pos.y - 35});
-    text.setString("PLACEHOLDER \npress Enter to Continue.");
+    text.setString(  "\npress Enter to Continue.");
     text.setFillColor(sf::Color(255,255,255,255));
     window.draw(text);
 
