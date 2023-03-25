@@ -118,6 +118,9 @@ int main(){
         
         //switch statement for the different dialogs and actions
         //playerPosition.setPosition(floor(player.getPosition().x / 10), floor(player.getPosition().y/10));
+        if(player.readyForInput){
+            player.getInput(font, window, {player.getPosition().x - 248, player.getPosition().y -200 });
+        }
         p_y = floor(player.getPosition().y/10);
         p_x = floor(player.getPosition().x / 10);
         switch(p_y){

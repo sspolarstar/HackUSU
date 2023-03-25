@@ -144,7 +144,7 @@ void Player::riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos)
 			break;
 			}
 		}
-	this->updateFlag = false;
+		readyForInput = true;
 }
 
 
