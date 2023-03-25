@@ -31,3 +31,5 @@ src/include/*
 *.exe
 *.out
 *.app
+.vscode/settings.json
+src/main

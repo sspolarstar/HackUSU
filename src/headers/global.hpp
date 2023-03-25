@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+//static float Time_Remaining = 900000.0 ;
+
 
 constexpr unsigned char LEFT  = 0;
 constexpr unsigned char Right = 1;
