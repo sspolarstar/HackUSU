@@ -44,6 +44,7 @@ enum class Cell {
     window,
     aggie,
     sky,
+    end,
 };
 
 
