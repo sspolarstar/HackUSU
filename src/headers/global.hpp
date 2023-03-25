@@ -6,6 +6,7 @@
 #include <array>
 //static float Time_Remaining = 900000.0 ;
 
+
 constexpr unsigned char LEFT  = 0;
 constexpr unsigned char RIGHT = 1;
 constexpr unsigned char UP    = 2;
@@ -23,7 +24,12 @@ enum class Cell {
     wall,
     stair,
     grass,
-    nextArea,
+    Left_rail,
+    Right_rail,
+    concrete,
+    flower,
+    bush,
+
 };
 
 

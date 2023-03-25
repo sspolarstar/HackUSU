@@ -19,8 +19,7 @@ int main(){
     sf::RenderWindow window(sf::VideoMode(500, 500), "Test");
     sf::View view(sf::FloatRect(0, 0, 500, 500));
     Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2));
-
-    
+    Enemy big_bad(0.0,3.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80);    
     
     MapManager mapManager;
     mapManager.convertMap(firstMap, player); //get mapSketch from assests/maps/maps.hpp
@@ -60,6 +59,10 @@ int main(){
         mapManager.drawMap(window);
         player.update(deltaTime, mapManager);
         player.draw(window);
+
+        big_bad.update(deltaTime, player, 200);
+        big_bad.draw(window);
+
         if(player.hasText){
             window.draw(timerBackground);
             timerText.setString(std::to_string(player.getTimeRemaing()));

@@ -1,7 +1,10 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include "global.hpp"
+#include <SFML/Graphics.hpp>
+
+class MapManager;
+class Collision;
 
 class MapManager;
 class Collision;
@@ -31,8 +34,4 @@ class Player{
         bool facesRight = false;
         Position position;
         sf::RectangleShape body;
-        
-        
-
-
 };
