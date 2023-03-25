@@ -9,9 +9,14 @@ default constructor
 takes x and y position, a Vector2f size (how many cells are used, see
     main.cpp for details), and speed.
 */
-Squirrel::Squirrel(float x, float y, sf::Vector2f size, float speed) {
+Squirrel::Squirrel(float x, float y, sf::Vector2f size, float speed, sf::Texture& texture, sf::Vector2u imageCount):
+    animation(texture, imageCount, 0.2f)
+{
+
     this->position.setPosition(x, y);
     this->body.setPosition({x, y});
+    this->body.setTexture(&texture);
+
     // this->texture = texture;
     this->speed = speed;
 
@@ -32,7 +37,6 @@ void Squirrel::update(float deltaTime) {
     
     this->position.x += deltaTime * this->speed;
     this->body.setPosition(this->position.x, this->position.y);
-
     if (this->position.x > 100) {
         speed = speed * -1;
     }
@@ -50,7 +54,10 @@ void Squirrel::update(float deltaTime, Player &target,
     // get the direction toward the target
     sf::Vector2f direction(target.getPosition().x - this->position.x,
         target.getPosition().y - this->position.y);
-
+    if(((target.getPosition().x - this->position.x) < 10 && (target.getPosition().x - this->position.x) > -10)
+        && (target.getPosition().y - this->position.y > -10 && target.getPosition().y - this->position.y < 10)){
+            target.gotSql = true;
+        }
     // get the magnitude of the direction toward the player (sqrt(a^2 + b^2))
     float mag = sqrt(direction.x * direction.x + direction.y * direction.y);
     
@@ -80,8 +87,27 @@ void Squirrel::update(float deltaTime, Player &target,
                 deltaY = 0.0;
         }
         
+        int row = -1;
+        int facesRight = false;
+        if(deltaX < 0)
+            row = 1;
+        
+        if(deltaX > 0){
+            facesRight = true;
+            row = 1;
+        }
+        if(deltaY > 0)
+            row = 0;
+        if(deltaY < 0)
+            row = 2;
+
+        if(deltaY == 0 && deltaX == 0) row = -1;
         this->position.x += deltaX;
         this->position.y += deltaY;
+
+        
+        animation.update(row, deltaTime, facesRight);
+	    body.setTextureRect(animation.uvRect);
 
         this->body.setPosition(this->position.x, this->position.y);
     }

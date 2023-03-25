@@ -3,6 +3,7 @@
 #include "global.hpp"
 #include "player.hpp"
 #include "mapManager.hpp"
+#include "Animation.hpp"
 #include <string>
 #include <cmath>
 
@@ -12,8 +13,7 @@ float check_sign(float);
 
 class Squirrel{
     public:
-        Squirrel(float x, float y, sf::Vector2f size, float speed);
-    
+        Squirrel(float x, float y, sf::Vector2f size, float speed, sf::Texture& texture, sf::Vector2u imageCount);
     public:
         // movement
         void setPosition(Position pos);
@@ -25,7 +25,7 @@ class Squirrel{
         void update(float deltaTime, Player &target,
                     float radius, MapManager &mapRef);
         void draw(sf::RenderWindow &window);
-
+        Animation animation;
         // debugging functionality
         bool showHitBox = false;
 

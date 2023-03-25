@@ -23,7 +23,7 @@ class Player{
         void setTimeRemaining(float newTime){this->Time_Remaining = newTime;}
     public:
         bool hasText = 1;
-
+        bool gotSql = false;
         Animation animation;
 
     private:

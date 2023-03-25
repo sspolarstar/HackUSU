@@ -21,12 +21,17 @@ int main(){
     sf::View view(sf::FloatRect(0, 0, 500, 500));
    
     Enemy big_bad(0.0,3.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80);
-    Squirrel sql(1461, 852, sf::Vector2f(CELL_SIZE,CELL_SIZE), 80);    
 
-    sf::Texture texture;
-    texture.loadFromFile("assets/img/purpShirt.png");
-    Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), texture, {4,3});
+    sf::Texture sqlTexture;
+    sqlTexture.loadFromFile("assets/img/squrrills.png");
+    Squirrel sql(95*CELL_SIZE, 58*CELL_SIZE, sf::Vector2f(CELL_SIZE,CELL_SIZE), 80, sqlTexture, {4,3});    
+
+    sf::Texture playerTexture;
+    playerTexture.loadFromFile("assets/img/purpShirt.png");
+    Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), playerTexture, {4,3});
     
+
+
     MapManager mapManager;
     mapManager.convertMap(firstMap, player); //get mapSketch from assests/maps/maps.hpp
 
@@ -68,8 +73,9 @@ int main(){
 
         big_bad.update(deltaTime, player, 200, mapManager);
         big_bad.draw(window);
-
-        sql.update(deltaTime, player, 200, mapManager);
+        if(!player.gotSql){
+            sql.update(deltaTime, player, 200, mapManager);
+        }
         sql.draw(window);
 
         if(player.hasText){
