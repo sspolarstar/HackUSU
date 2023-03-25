@@ -140,6 +140,9 @@ void Player::riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos)
 			break;
 		}
 	}
+	using namespace std::chrono_literals;
+	std::this_thread::sleep_for(200ms);
+	
 	this->updateFlag = false;
 }
 
@@ -240,5 +243,8 @@ void Player::introInstructions(sf::Font& font, sf::RenderWindow& window, Positio
 			break;
 		}
 	}
+
+	using namespace std::chrono_literals;
+	std::this_thread::sleep_for(200ms);
 
 }

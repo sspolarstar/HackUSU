@@ -30,9 +30,12 @@ int main(){
    
     // stair enemies
     std::vector<Enemy> stair_guys(10);
+    Enemy tracker1, tracker2;
     std::default_random_engine generator;
-    std::uniform_int_distribution<int> distribution(1,135);
-    auto get_st_x = std::bind ( distribution, generator );
+    std::uniform_int_distribution<int> stage_1(1,135);
+    std::uniform_int_distribution<int> stage_2(60,100);
+    auto get_st_x = std::bind ( stage_1, generator );
+    auto get_st_s = std::bind ( stage_2, generator );
 
     sf::Texture sqlTexture;
     sqlTexture.loadFromFile("assets/img/squrrills.png");
@@ -154,8 +157,69 @@ int main(){
                 }
             } else if ((player_pos.y < 2250) && (player_pos.y > 2200)) {
                 stair_guys.clear();
-            } else if (player_pos.y < 1150) {
-                std::cout << "stair 2\n";
+            } else if (player_pos.y > 1180) {
+
+                // add more people to the stairs, and randomize their velocity
+                if ((stairTime > 0.5) && (stair_guys.size() < 80)) {
+                    // get the spawn height
+                    float spawn_height = (player.getPosition().y - 500) > 1180 ? (player.getPosition().y - 500) : 1180;
+
+                    // set this guys starting position
+                    stair_guys.push_back(Enemy((450 + (float)get_st_x()), 1180,
+                        sf::Vector2f(CELL_SIZE,CELL_SIZE*2), (float)get_st_s()));
+                    
+                    // reset the stair time
+                    stairTime = 0.0;
+                }
+
+                // render all of these enemies
+                for (auto &stair_guy : stair_guys) {
+                    // delete guys who are below screen
+                    if (stair_guy.getPosition().y > (player.getPosition().y + 300) &&
+                    stair_guy.getPosition().y > 2250) {
+                        stair_guy.setPosition({stair_guy.getPosition().x, 1180});
+                    }
+                    stair_guy.move_in_dir(deltaTime, {0,1});
+                    stair_guy.draw(window);
+                }
+            } else if ((player_pos.y < 1180) && (player_pos.y > 1160)) {
+                stair_guys.clear();
+                tracker1 = Enemy(440, 1210, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 90);
+                tracker2 = Enemy(590, 1210, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 90);
+            } else if (player_pos.y > 210) {
+
+                // add more people to the stairs, and randomize their velocity
+                if ((stairTime > 0.5) && (stair_guys.size() < 80)) {
+                    // get the spawn height
+                    float spawn_height = (player.getPosition().y - 300) > 300 ? (player.getPosition().y - 300) : 300;
+
+                    // set this guys starting position
+                    stair_guys.push_back(Enemy((450 + (float)get_st_x()), spawn_height,
+                        sf::Vector2f(CELL_SIZE,CELL_SIZE*2), (float)get_st_s()));
+                    
+                    // reset the stair time
+                    stairTime = 0.0;
+                }
+
+                // render all of these enemies
+                for (auto &stair_guy : stair_guys) {
+                    // delete guys who are below screen
+                    if (stair_guy.getPosition().y > (player.getPosition().y + 300) &&
+                    stair_guy.getPosition().y > 1500) {
+                        stair_guy.setPosition({stair_guy.getPosition().x, 300});
+                    }
+                    stair_guy.move_in_dir(deltaTime, {0,1});
+                    stair_guy.draw(window);
+                }
+
+                // update the tracker players
+                tracker1.update(deltaTime, player, 200, mapManager);
+                tracker2.update(deltaTime, player, 200, mapManager);
+                tracker1.draw(window);
+                tracker2.draw(window);
+            } else {
+                stair_guys.clear();
+                tracker1.setPosition(440, 1210);
             }
 
         }
