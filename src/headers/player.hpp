@@ -24,6 +24,7 @@ class Player{
     public:
         bool hasText = 1;
         bool gotSql = false;
+        bool gotRiddler = false;
         Animation animation;
 
     private:
