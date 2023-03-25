@@ -42,7 +42,7 @@ const std::string riddle_2 = "Partitions of professors, education \n"
 							 "messers. Some seem to take ages, but the \n"
 							 "end is near. They only come round twice a \n"
 							 "year.";
-const std::string riddle_3 = "Riddle 3: Of all the numbers I love three, \n"
+const std::string riddle_3 = "Riddle 2: Of all the numbers I love three, \n"
 							 "it is the only one four me. Sweet or \n"
 							 "savoury it may taste, this tasty number \n"
 							 "can't be replaced!";
