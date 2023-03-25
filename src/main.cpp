@@ -24,7 +24,7 @@ int main(){
 
     sf::Texture sqlTexture;
     sqlTexture.loadFromFile("assets/img/squrrills.png");
-    Squirrel sql(95*CELL_SIZE, 58*CELL_SIZE, sf::Vector2f(CELL_SIZE,CELL_SIZE), 120, sqlTexture, {4,3});    
+    Squirrel sql(1600, 2900, sf::Vector2f(CELL_SIZE,CELL_SIZE), 120, sqlTexture, {4,3});    
 
     sf::Texture playerTexture;
     playerTexture.loadFromFile("assets/img/purpShirt.png");
@@ -62,6 +62,7 @@ int main(){
         }
         
         view.reset(sf::FloatRect(float(player.getPosition().x - 250), float(player.getPosition().y - 250), 500, 500));
+        std::cout<<player.getPosition().x << " " << player.getPosition().y <<std::endl;
         timerBackground.setPosition({player.getPosition().x - 248, player.getPosition().y - 248});
         timerText.setPosition({player.getPosition().x - 240, player.getPosition().y - 248});
         window.setView(view);

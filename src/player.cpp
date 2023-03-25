@@ -26,8 +26,6 @@ void Player::update(float deltaTime, MapManager& mapRef){
     float x = 0;
     float y = 0;
     Collided collision_direction = map_collision({this->getPosition()}, mapRef);
-	//Player animations
-	//player movements
 	Position movement;
 	movement.x = 0;
 	movement.y = 0;

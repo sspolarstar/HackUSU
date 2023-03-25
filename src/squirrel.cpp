@@ -16,7 +16,7 @@ Squirrel::Squirrel(float x, float y, sf::Vector2f size, float speed, sf::Texture
     this->position.setPosition(x, y);
     this->body.setPosition({x, y});
     this->body.setTexture(&texture);
-
+    this->body.setFillColor(sf::Color(20,40,40,125));
     // this->texture = texture;
     this->speed = speed;
 
