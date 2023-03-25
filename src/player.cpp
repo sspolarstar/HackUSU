@@ -2,10 +2,14 @@
 #include "headers/mapManager.hpp"
 #include "headers/collision.hpp"
 
-Player::Player(float x, float y, sf::Vector2f size){
+Player::Player(float x, float y, sf::Vector2f size, sf::Texture& texture, sf::Vector2u imageCount):
+animation(texture, imageCount, 0.2f)
+{
+
     this->position.setPosition({x,y});
-    this->body.setFillColor(sf::Color(0,255,0));
+    //this->body.setFillColor(sf::Color(0,255,0));
     this->body.setSize(size);
+    this->body.setTexture(&texture);
 }   
 
 void Player::setPosition(float x, float y){
@@ -28,11 +32,10 @@ void Player::update(float deltaTime, MapManager& mapRef){
 	sf::Vector2u walkDown(10, 12);
 	sf::Vector2u holdStill(6, 8);
 	//player movements
-	//sf::Vector2f movement(0.0f, 0.0f);
 	Position movement;
 	movement.x = 0;
 	movement.y = 0;
-	
+	int row;
 	sf::Vector2u rowLocator;
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
@@ -45,7 +48,8 @@ void Player::update(float deltaTime, MapManager& mapRef){
 			if (collision_direction.nextArea[LEFT]) {
 				movement.x = movement.x / 3;
 			}
-			rowLocator = walkRight; //actually left!
+			row = 1; //actually left!
+            facesRight = false;
 		}
 	}
 	
@@ -57,24 +61,16 @@ void Player::update(float deltaTime, MapManager& mapRef){
 			if (collision_direction.nextArea[RIGHT]) {
 				movement.x = movement.x / 3;
 			}
-			rowLocator = walkRight;
+			row = 1;
+            facesRight = true;
 		}		
 	}
-	if (movement.x == 0) {
-		//row = 0;
-		rowLocator = holdStill;
-	}
-	else {
-		//let's rewrite this later. but I don't think we use this much.
-		facesRight = movement.x > 0.0f;
-	}
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
 	{
 		if (collision_direction.wall[UP]) {}
 		else {
 			movement.y -= speed * deltaTime;
-			rowLocator = walkUp;
+			row = 2;
 		}
 		if (collision_direction.nextArea[UP]) {
 			movement.y = movement.y / 3;
@@ -86,15 +82,20 @@ void Player::update(float deltaTime, MapManager& mapRef){
 		}
 		else {
 			movement.y += speed * deltaTime;
-			rowLocator = walkDown;
+			row = 0;
 		}
 		if (collision_direction.nextArea[DOWN]) {
 			movement.y = movement.y / 3;
 		}
 	}
 	//end player movements
-	//animation.Update(row, rowLocator, deltaTime, facesRight);
-	//body.setTextureRect(animation.uvRect);
+    rowLocator = {0,3};
+    if(movement.y == 0 && movement.x ==0){
+        row = -1;
+    }
+	animation.update(row, rowLocator, deltaTime, facesRight);
+
+	body.setTextureRect(animation.uvRect);
 
     this->move(movement);
 
