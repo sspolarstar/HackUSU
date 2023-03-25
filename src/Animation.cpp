@@ -4,7 +4,6 @@ Animation::Animation(sf::Texture& texture, sf::Vector2u& imageCount, float switc
     uvRect.width = texture.getSize().x/imageCount.x;
     uvRect.height = (texture.getSize().y + 3) / (imageCount.y);
    
-    std::cout<< uvRect.width << uvRect.height <<std::endl;
     this->switchTime = 0.1f;
     currentImage.x = 0;
     totalTime = 0.0f;
@@ -16,7 +15,6 @@ void Animation::update(int row, sf::Vector2u rowLocater, float deltaTime, bool f
     if (totalTime > this->switchTime) {
         totalTime -= this->switchTime;
         if(row != -1){
-            std::cout<<row<<std::endl;
             uvRect.top = currentImage.y * uvRect.height;
             if (facesRight) {
                 uvRect.left = (currentImage.x + 1) * abs(uvRect.width);
