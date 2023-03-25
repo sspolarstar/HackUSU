@@ -103,6 +103,7 @@ void Player::update(float deltaTime, MapManager& mapRef){
 void Player::move(Position pos){
     this->position.setPosition(this->position + pos);
     this->body.setPosition(body.getPosition().x + pos.x, body.getPosition().y + pos.y);
+	std::cout << body.getPosition().x << ", " << body.getPosition().y << std::endl;
 }
 
 void Player::draw(sf::RenderWindow &window){
