@@ -9,9 +9,14 @@ default constructor
 takes x and y position, a Vector2f size (how many cells are used, see
     main.cpp for details), and speed.
 */
-Squirrel::Squirrel(float x, float y, sf::Vector2f size, float speed) {
+Squirrel::Squirrel(float x, float y, sf::Vector2f size, float speed, sf::Texture& texture, sf::Vector2u imageCount):
+    animation(texture, imageCount, 0.2f)
+{
+
     this->position.setPosition(x, y);
     this->body.setPosition({x, y});
+    this->body.setTexture(&texture);
+    this->body.setFillColor(sf::Color(20,40,40,125));
     // this->texture = texture;
     this->speed = speed;
 
@@ -32,7 +37,6 @@ void Squirrel::update(float deltaTime) {
     
     this->position.x += deltaTime * this->speed;
     this->body.setPosition(this->position.x, this->position.y);
-
     if (this->position.x > 100) {
         speed = speed * -1;
     }
@@ -50,7 +54,10 @@ void Squirrel::update(float deltaTime, Player &target,
     // get the direction toward the target
     sf::Vector2f direction(target.getPosition().x - this->position.x,
         target.getPosition().y - this->position.y);
-
+    if(((target.getPosition().x - this->position.x) < 10 && (target.getPosition().x - this->position.x) > -10)
+        && (target.getPosition().y - this->position.y > -10 && target.getPosition().y - this->position.y < 10)){
+            target.gotSql = true;
+        }
     // get the magnitude of the direction toward the player (sqrt(a^2 + b^2))
     float mag = sqrt(direction.x * direction.x + direction.y * direction.y);
     
@@ -80,8 +87,27 @@ void Squirrel::update(float deltaTime, Player &target,
                 deltaY = 0.0;
         }
         
+        int row = -1;
+        int facesRight = false;
+        if(deltaX < 0)
+            row = 1;
+        
+        if(deltaX > 0){
+            facesRight = true;
+            row = 1;
+        }
+        if(deltaY > 0)
+            row = 0;
+        if(deltaY < 0)
+            row = 2;
+
+        if(deltaY == 0 && deltaX == 0) row = -1;
         this->position.x += deltaX;
         this->position.y += deltaY;
+
+        
+        animation.update(row, deltaTime, facesRight);
+	    body.setTextureRect(animation.uvRect);
 
         this->body.setPosition(this->position.x, this->position.y);
     }
@@ -133,4 +159,32 @@ float check_sign(float val) {
     } else {
         return -1.0;
     }
+}
+
+
+void Squirrel::defeat(sf::Font& font, sf::RenderWindow& window, sf::Vector2f pos){
+    this->seenDefeat = true;
+    sf::RectangleShape textBox;
+    textBox.setFillColor(sf::Color(0,0,0,125));
+    textBox.setSize({480, 65});
+    textBox.setOutlineColor(sf::Color::White);
+    textBox.setOutlineThickness(2);
+    textBox.setPosition({pos.x, pos.y - 45});
+    window.draw(textBox);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition({pos.x + 10, pos.y - 35});
+    text.setString("PLACEHOLDER \npress Enter to Continue.");
+    text.setFillColor(sf::Color(255,255,255,255));
+    window.draw(text);
+
+    window.display();
+    while(1){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+            break;
+        }
+    }
+
 }

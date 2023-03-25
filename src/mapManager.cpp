@@ -40,7 +40,9 @@ void MapManager::drawMap(sf::RenderWindow & window){
                 case Cell::grass:
                     sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
                     sprite.setTextureRect({ 16, 0, 32, 16 });
+                    //sprite.setColor(sf::Color::Blue);
                     window.draw(sprite);
+                    sprite.setColor(sf::Color(255,255,255,255));
                     break;
                 case Cell::Left_rail:
                     sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });

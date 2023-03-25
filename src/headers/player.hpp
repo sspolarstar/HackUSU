@@ -23,12 +23,13 @@ class Player{
         void setTimeRemaining(float newTime){this->Time_Remaining = newTime;}
     public:
         bool hasText = 1;
-
+        bool gotSql = false;
+        bool gotRiddler = false;
         Animation animation;
 
     private:
         float Time_Remaining = 15*60;
-        float speed = 300;
+        float speed = 100;
         bool facesRight = false;
         Position position;
         sf::RectangleShape body;

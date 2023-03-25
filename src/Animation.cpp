@@ -9,7 +9,7 @@ Animation::Animation(sf::Texture& texture, sf::Vector2u& imageCount, float switc
     totalTime = 0.0f;
 }
 
-void Animation::update(int row, sf::Vector2u rowLocater, float deltaTime, bool facesRight){
+void Animation::update(int row, float deltaTime, bool facesRight){
     currentImage.y = row;
     totalTime += deltaTime;
     if (totalTime > this->switchTime) {

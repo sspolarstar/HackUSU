@@ -12,6 +12,7 @@ int main(){
     ////////////////////////VARIABLES
     float deltaTime = 0.0f;
     sf::Clock clock;
+
     sf::RectangleShape timerBackground;
     sf::Text textLabel;
     sf::Text timerText;
@@ -21,12 +22,22 @@ int main(){
     sf::View view(sf::FloatRect(0, 0, 500, 500));
    
     Enemy big_bad(0.0,3.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80);
-    Squirrel sql(1461, 852, sf::Vector2f(CELL_SIZE,CELL_SIZE), 80);    
 
-    sf::Texture texture;
-    texture.loadFromFile("assets/img/purpShirt.png");
-    Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), texture, {4,3}); 
+    sf::Texture sqlTexture;
+    sqlTexture.loadFromFile("assets/img/squrrills.png");
+    Squirrel sql(1600, 2900, sf::Vector2f(CELL_SIZE,CELL_SIZE), 120, sqlTexture, {4,3});    
+
+    sf::Texture playerTexture;
+    playerTexture.loadFromFile("assets/img/purpShirt.png");
+    Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), playerTexture, {4,3});
     
+    sf::Texture riddlerTexture;
+    riddlerTexture.loadFromFile("assets/img/riddlerman.png");
+    sf::RectangleShape riddlerBody;
+    riddlerBody.setPosition({1969.0,2902.9});
+    riddlerBody.setSize({CELL_SIZE, CELL_SIZE*2});
+    riddlerBody.setTexture(&riddlerTexture);
+
     MapManager mapManager;
     mapManager.convertMap(firstMap, player); //get mapSketch from assests/maps/maps.hpp
 
@@ -57,6 +68,7 @@ int main(){
         }
         
         view.reset(sf::FloatRect(float(player.getPosition().x - 250), float(player.getPosition().y - 250), 500, 500));
+        std::cout<<player.getPosition().x << " " << player.getPosition().y <<std::endl;
         timerBackground.setPosition({player.getPosition().x - 248, player.getPosition().y - 248});
         timerText.setPosition({player.getPosition().x - 240, player.getPosition().y - 248});
         window.setView(view);
@@ -68,10 +80,16 @@ int main(){
 
         big_bad.update(deltaTime, player, 200, mapManager);
         big_bad.draw(window);
-
-        //sql.update(deltaTime, player, 200, mapManager);
-        //sql.draw(window);
-
+        if(!player.gotSql){
+            sql.update(deltaTime, player, 200, mapManager);
+        }
+        else {
+            //you beat the squirl.
+            if(!sql.seenDefeat)
+                sql.defeat(font, window, {player.getPosition().x - 248, player.getPosition().y + 200});
+        }
+        sql.draw(window);
+        window.draw(riddlerBody);
         if(player.hasText){
             window.draw(timerBackground);
             timerText.setString(std::to_string(player.getTimeRemaing()));

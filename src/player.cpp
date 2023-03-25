@@ -26,12 +26,6 @@ void Player::update(float deltaTime, MapManager& mapRef){
     float x = 0;
     float y = 0;
     Collided collision_direction = map_collision({this->getPosition()}, mapRef);
-	//Player animations
-	sf::Vector2u walkRight(1, 5);
-	sf::Vector2u walkUp(17, 21);
-	sf::Vector2u walkDown(10, 12);
-	sf::Vector2u holdStill(6, 8);
-	//player movements
 	Position movement;
 	movement.x = 0;
 	movement.y = 0;
@@ -93,7 +87,7 @@ void Player::update(float deltaTime, MapManager& mapRef){
     if(movement.y == 0 && movement.x ==0){
         row = -1;
     }
-	animation.update(row, rowLocator, deltaTime, facesRight);
+	animation.update(row, deltaTime, facesRight);
 
 	body.setTextureRect(animation.uvRect);
 
