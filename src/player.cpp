@@ -93,7 +93,7 @@ void Player::update(float deltaTime, MapManager& mapRef){
     if(movement.y == 0 && movement.x ==0){
         row = -1;
     }
-	animation.update(row, rowLocator, deltaTime, facesRight);
+	animation.update(row, deltaTime, facesRight);
 
 	body.setTextureRect(animation.uvRect);
 

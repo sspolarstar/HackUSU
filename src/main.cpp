@@ -26,7 +26,6 @@ int main(){
     sf::Texture texture;
     texture.loadFromFile("assets/img/purpShirt.png");
     Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), texture, {4,3});
-    Enemy big_bad(0.0,3.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80);    
     
     MapManager mapManager;
     mapManager.convertMap(firstMap, player); //get mapSketch from assests/maps/maps.hpp
