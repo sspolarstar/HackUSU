@@ -21,10 +21,12 @@ class Player{
         void reduceTimeRemaing(float newTime){this->Time_Remaining = this->Time_Remaining - newTime;}
         float getTimeRemaing(){return this->Time_Remaining;}
         void setTimeRemaining(float newTime){this->Time_Remaining = newTime;}
+        void riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos);
     public:
         bool hasText = 1;
         bool gotSql = false;
         bool gotRiddler = false;
+        bool updateFlag = false;
         Animation animation;
 
     private:

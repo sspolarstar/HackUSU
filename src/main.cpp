@@ -17,6 +17,8 @@ int main(){
     sf::Text textLabel;
     sf::Text timerText;
     sf::Font font;    
+    //player positions for later switch statement
+    int p_x, p_y;
     ///////////////////////CLASSES
     sf::RenderWindow window(sf::VideoMode(500, 500), "Graduation");
     sf::View view(sf::FloatRect(0, 0, 500, 500));
@@ -41,9 +43,14 @@ int main(){
     MapManager mapManager;
     mapManager.convertMap(firstMap, player); //get mapSketch from assests/maps/maps.hpp
 
+
+
+
+
     /////////////////////functional asset rendering
     if (!font.loadFromFile("assets/fonts/sansation.ttf"))
         std::cout<<"no font loaded" << std::endl;
+
     timerText.setFont(font);
     timerText.setCharacterSize(20);
     timerText.setFillColor(sf::Color(255,255,255,255));
@@ -75,7 +82,9 @@ int main(){
         window.clear();
         
         mapManager.drawMap(window);
-        player.update(deltaTime, mapManager);
+        if(!player.updateFlag){
+            player.update(deltaTime, mapManager);
+        }
         player.draw(window);
 
         big_bad.update(deltaTime, player, 200, mapManager);
@@ -86,15 +95,34 @@ int main(){
         else {
             //you beat the squirl.
             if(!sql.seenDefeat)
-                sql.defeat(font, window, {player.getPosition().x - 248, player.getPosition().y + 200});
+                sql.defeat(font, window, {player.getPosition().x - 248, player.getPosition().y });
         }
         sql.draw(window);
         window.draw(riddlerBody);
-        if(player.hasText){
-            window.draw(timerBackground);
-            timerText.setString(std::to_string(player.getTimeRemaing()));
-            window.draw(timerText);
+        
+        window.draw(timerBackground);
+        timerText.setString(std::to_string(player.getTimeRemaing()));
+        window.draw(timerText);
+        
+        //switch statement for the different dialogs and actions
+        //playerPosition.setPosition(floor(player.getPosition().x / 10), floor(player.getPosition().y/10));
+        p_y = floor(player.getPosition().y/10);
+        p_x = floor(player.getPosition().x / 10);
+        switch(p_y){
+            case 289:
+                if(p_x < 202){
+                    if(!player.gotRiddler){
+                        player.riddlerScene(font, window, {player.getPosition().x  - 248, player.getPosition().y  + 200});
+                    }
+                }
+                break;
+            default:
+                break;   
         }
+
+
+
+
         //end the game if the timer runs out.
         if(player.getTimeRemaing() <= 0.0f){
                 sf::RectangleShape endscreen;
