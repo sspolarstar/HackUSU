@@ -25,6 +25,7 @@ class Player{
         void introScene(sf::Font &font, sf::RenderWindow& window);
         void introControls(sf::Font &font, sf::RenderWindow& window, Position pos);
         void introInstructions(sf::Font &font, sf::RenderWindow& window, Position pos);
+        void getInput(sf::Font &font, sf::RenderWindow& window, Position pos);
     public:
         bool seenIntro = false;
         bool hasText = 1;
@@ -33,11 +34,12 @@ class Player{
         bool updateFlag = false;
         bool seenIntroControls = false;
         bool seenIntroDirections = false;
+        bool readyForInput = false;
         Animation animation;
 
     private:
         float Time_Remaining = 15*60;
-        float speed = 100;
+        float speed = 200;
         bool facesRight = false;
         Position position;
         sf::RectangleShape body;

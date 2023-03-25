@@ -121,7 +121,7 @@ void Player::riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos)
 	this->updateFlag = true;
     sf::RectangleShape textBox;
     textBox.setFillColor(sf::Color(0,0,0,125));
-    textBox.setSize({480, 65});
+    textBox.setSize({480, 465});
     textBox.setOutlineColor(sf::Color::White);
     textBox.setOutlineThickness(2);
     textBox.setPosition({pos.x, pos.y - 45});
@@ -130,20 +130,30 @@ void Player::riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos)
     sf::Text text;
     text.setFont(font);
     text.setCharacterSize(20);
-    text.setPosition({pos.x + 10, pos.y - 35});
-    text.setString(  "\npress Enter to Continue.");
+    text.setPosition({pos.x + 40, pos.y - 35});
+    text.setString( mini_1_intro + "\npress Enter to Continue.");
     text.setFillColor(sf::Color(255,255,255,255));
     window.draw(text);
-
+	window.display();
 		while(1){
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
 			break;
+			}
 		}
-	}
+		for(int i = 0; i<1000; i++)std::cout<<" "<<std::endl;
+	text.setString(riddle_1 + "\npress Enter to Continue.");
+	text.setPosition({pos.x + 10, pos.y + 235});
+	window.draw(text);
+	window.display();
+		while(1){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			break;
+			}
+		}
 	using namespace std::chrono_literals;
 	std::this_thread::sleep_for(200ms);
 	
-	this->updateFlag = false;
+		readyForInput = true;
 }
 
 

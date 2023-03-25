@@ -144,6 +144,11 @@ void MapManager::drawMap(sf::RenderWindow & window){
                     sprite.setTextureRect({ 48, 64, 64, 80 });
                     window.draw(sprite);
                     break;
+                case Cell::end:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 64, 48, 80, 64 });
+                    window.draw(sprite);
+                    break;
                 default:
                     break;
             }
@@ -235,6 +240,9 @@ void MapManager::convertMap(std::array<std::string, MAX_MAP_HEIGHT>& mapSketch, 
                     break;
                 case 'I':
                     map.map[i][j] = Cell::aggie;
+                    break;
+                case 'E':
+                    map.map[i][j] = Cell::end;
                     break;
                 default:
                     break;
