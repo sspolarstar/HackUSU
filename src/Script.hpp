@@ -30,19 +30,18 @@ const std::string win_msg = "Congradualations, you have successfully \n"
 const std::string mini_1_intro = "Hehehe, win of game of riddles with me, \n"
 								 "and I will give you a gown completely \n"
 								 "free! In order to win the gown for free, \n"
-								 "you must correctly solve my riddles three.";
+								 "you must correctly solve my riddles three.\n"
+								 "To be successfuly, you must be cunning \n"
+								 "Remember your commencement clock is still \n"
+								 "running.";
 const std::string riddle_1 = "Riddle 1: A test of endurance, creativity, \n"
 							 "and poise. This USU coding event is held \n"
 							 "annually for Aggie girls and boys.";
-const std::string riddle_2 = "Riddle 2: Partitions of professors, \n"
-							 "education ingesters, and some simply feel \n"
-							 "like GPA messers. Some are awesome! \n"
-							 "Others, less great. Typical tenures come \n"
-							 "in sets of eight.";
-const std::string riddle_2_edit = "You seem to be struggling, so I will help \n"
-								  "you. Here is another brief clue: \n"
-								  "Some seem to take ages, but the end is \n"
-								  "near. They only come round twice a year.";
+const std::string riddle_2 = "Partitions of professors, education \n"
+							 "ingesters, and some simply feel like GPA \n"
+							 "messers. Some seem to take ages, but the \n"
+							 "end is near. They only come round twice a \n"
+							 "year.";
 const std::string riddle_3 = "Riddle 3: Of all the numbers I love three, \n"
 							 "it is the only one four me. Sweet or \n"
 							 "savoury it may taste, this tasty number \n"
