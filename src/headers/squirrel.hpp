@@ -8,9 +8,11 @@
 
 class MapManager;
 
-class Enemy{
+float check_sign(float);
+
+class Squirrel{
     public:
-        Enemy(float x, float y, sf::Vector2f size, float speed);
+        Squirrel(float x, float y, sf::Vector2f size, float speed);
     
     public:
         // movement
@@ -20,7 +22,8 @@ class Enemy{
 
         // rendering and update functions
         void update(float deltaTime);
-        void update(float deltaTime, Player &target, float radius, MapManager &mapRef);
+        void update(float deltaTime, Player &target,
+                    float radius, MapManager &mapRef);
         void draw(sf::RenderWindow &window);
 
         // debugging functionality

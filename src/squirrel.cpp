@@ -1,4 +1,5 @@
-#include "headers/enemy.hpp"
+#include "headers/squirrel.hpp"
+
 #include "headers/mapManager.hpp"
 #include "headers/collision.hpp"
 
@@ -8,27 +9,26 @@ default constructor
 takes x and y position, a Vector2f size (how many cells are used, see
     main.cpp for details), and speed.
 */
-Enemy::Enemy(float x, float y, sf::Vector2f size, float speed) {
+Squirrel::Squirrel(float x, float y, sf::Vector2f size, float speed) {
     this->position.setPosition(x, y);
     this->body.setPosition({x, y});
     // this->texture = texture;
     this->speed = speed;
 
-    // default color is white. When player gets too close bad guy turns
-    // red
-    this->body.setFillColor(sf::Color(255,255,255));
+    // default color is brown
+    this->body.setFillColor(sf::Color(143, 86, 43));
     this->body.setSize(size);
 }
 
 // Adds pos to the current position
-void Enemy::move(Position pos) {
+void Squirrel::move(Position pos) {
     this->position.setPosition(this->position + pos);
     this->body.setPosition(body.getPosition().x + pos.x, body.getPosition().y + pos.y);
 }
 
 // updates an enemy. currently only updates position
 // and only moves back and forth in the x direction
-void Enemy::update(float deltaTime) {
+void Squirrel::update(float deltaTime) {
     
     this->position.x += deltaTime * this->speed;
     this->body.setPosition(this->position.x, this->position.y);
@@ -41,12 +41,12 @@ void Enemy::update(float deltaTime) {
     }
 }
 
-// updates an enemy to target a player. Takes a player reference,
-// a trigger radius, and the timestep. When player is within the given
-// radius, the enemy will move toward the player.
-void Enemy::update(float deltaTime, Player &target,
-        float radius, MapManager &mapRef) {
-    
+// Moves away from a player when the player is within radius.
+// if it is ourside the radius it moves toward the player
+// if it is at the radius it just kinda hangs out
+void Squirrel::update(float deltaTime, Player &target,
+                        float radius, MapManager &mapRef) {
+
     // get the direction toward the target
     sf::Vector2f direction(target.getPosition().x - this->position.x,
         target.getPosition().y - this->position.y);
@@ -59,12 +59,10 @@ void Enemy::update(float deltaTime, Player &target,
 
     // if the player is within the radius
     if (mag < radius) {
-        // then set the bad guy to be red
-        this->body.setFillColor(sf::Color(255,0,10));
-
-        // normalize the direction vector
-        direction.x = direction.x/mag;
-        direction.y = direction.y/mag;
+        // normalize the direction vector and reverse it to
+        // make it away from the player
+        direction.x = -direction.x/mag;
+        direction.y = -direction.y/mag;
 
         // move away from the player
         float deltaX = deltaTime * this->speed * direction.x;
@@ -84,16 +82,55 @@ void Enemy::update(float deltaTime, Player &target,
         
         this->position.x += deltaX;
         this->position.y += deltaY;
+
         this->body.setPosition(this->position.x, this->position.y);
     }
-    // else if the player is not close enough then set the color to white
+    // if the player is outside the radius
+    else if (mag > radius + 10) {
+        // normalize the direction vector and reverse it to
+        // make it toward from the player
+        direction.x = direction.x/mag;
+        direction.y = direction.y/mag;
+
+        // move toward from the player
+        float deltaX = deltaTime * this->speed * direction.x;
+        float deltaY = deltaTime * this->speed * direction.y;
+
+        // check collision errors
+        if ((deltaX < 0 && collision_direction.wall[LEFT]) ||
+            (deltaX > 0 && collision_direction.wall[RIGHT])) {
+                deltaX = 0.0;
+        }
+            
+
+        if ((deltaY < 0 && collision_direction.wall[UP])||
+            (deltaY > 0 && collision_direction.wall[DOWN])) {
+                deltaY = 0.0;
+        }
+        
+        this->position.x += deltaX;
+        this->position.y += deltaY;
+
+        this->body.setPosition(this->position.x, this->position.y);
+    }
+    // else if the player is about a radius distance away chill
     else {
-        this->body.setFillColor(sf::Color(255,255,255));
     }
     
 }
 
-void Enemy::draw(sf::RenderWindow &window) {
+void Squirrel::draw(sf::RenderWindow &window) {
     window.draw(this->body);
-    // std::cout << "Position is " << this->position.x << " " << this->position.y << std::endl;
+}
+
+// returns 1 if val is positive, 0 is val is zero, and -1 if val
+// is negative
+float check_sign(float val) {
+    if (val > 0) {
+        return 1.0;
+    } else if (val == 0.0) {
+        return 0.0;
+    } else {
+        return -1.0;
+    }
 }

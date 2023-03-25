@@ -5,6 +5,7 @@
 #include "headers/enemy.hpp"
 #include "headers/collision.hpp"
 #include "assets/maps/maps.hpp"
+#include "headers/squirrel.hpp"
 
 
 int main(){
@@ -19,7 +20,8 @@ int main(){
     sf::RenderWindow window(sf::VideoMode(500, 500), "Test");
     sf::View view(sf::FloatRect(0, 0, 500, 500));
     Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2));
-    Enemy big_bad(0.0,3.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80);    
+    Enemy big_bad(0.0,3.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80);
+    Squirrel sql(1461, 852, sf::Vector2f(CELL_SIZE,CELL_SIZE), 80);    
     
     MapManager mapManager;
     mapManager.convertMap(firstMap, player); //get mapSketch from assests/maps/maps.hpp
@@ -60,8 +62,11 @@ int main(){
         player.update(deltaTime, mapManager);
         player.draw(window);
 
-        big_bad.update(deltaTime, player, 200);
+        big_bad.update(deltaTime, player, 200, mapManager);
         big_bad.draw(window);
+
+        sql.update(deltaTime, player, 200, mapManager);
+        sql.draw(window);
 
         if(player.hasText){
             window.draw(timerBackground);
