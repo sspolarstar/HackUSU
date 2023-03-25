@@ -20,6 +20,18 @@ Enemy::Enemy(float x, float y, sf::Vector2f size, float speed) {
     this->body.setSize(size);
 }
 
+Enemy::Enemy() {
+    this->position.setPosition(0, 0);
+    this->body.setPosition({0, 0});
+    // this->texture = texture;
+    this->speed = speed;
+
+    // default color is white. When player gets too close bad guy turns
+    // red
+    this->body.setFillColor(sf::Color(255,255,255));
+    this->body.setSize(sf::Vector2f(CELL_SIZE * 2, CELL_SIZE));
+}
+
 // Adds pos to the current position
 void Enemy::move(Position pos) {
     this->position.setPosition(this->position + pos);
@@ -39,6 +51,59 @@ void Enemy::update(float deltaTime) {
     else if (this->position.x < 0) {
         speed = speed * -1;
     }
+}
+
+// move the enemy in a straight line, FOREVER HAHAHAHAHA
+void Enemy::move_in_dir(float deltaTime, sf::Vector2f dir) {
+    // get the magnitude of the direction toward the player (sqrt(a^2 + b^2))
+    float mag = sqrt(dir.x * dir.x + dir.y * dir.y);
+
+    // normalize the direction vector
+    dir.y = dir.y/mag;
+    dir.x = dir.x/mag;
+        
+    // move
+    float deltaX = deltaTime * this->speed * dir.x;
+    float deltaY = deltaTime * this->speed * dir.y;
+
+    // update the position
+    this->position.x += deltaX;
+    this->position.y += deltaY;
+    this->body.setPosition(this->position.x, this->position.y);
+}
+
+// move the enemy between two points
+void Enemy::move_from_a_to_b(float deltaTime, Position a, Position b) {
+    // when true enemy is moving toward a, else moving toward b
+    static bool to_a = true;
+
+    // get the direction from the enemy to the next point
+    sf::Vector2f dir;
+    if (to_a) {
+        dir = {a.x-this->position.x, a.y-this->position.y};
+    } else {
+        dir = {b.x-this->position.x, b.y-this->position.y};
+    }
+
+    // check if we need to switch directions
+    if (to_a && (v2util::magnitude_of(dir) < (2 * deltaTime * this->speed))) {
+        to_a = !to_a;
+    } else if (!to_a && (v2util::magnitude_of(dir) < (2 * deltaTime * this->speed))) {
+        to_a = !to_a;
+    }
+
+    // normalize the direction from a to b (or vice versa)
+    dir = v2util::normalize(dir);
+        
+    // move
+    float deltaX = deltaTime * this->speed * dir.x;
+    float deltaY = deltaTime * this->speed * dir.y;
+
+    // update the position
+    this->position.x += deltaX;
+    this->position.y += deltaY;
+    this->body.setPosition(this->position.x, this->position.y);   
+    
 }
 
 // updates an enemy to target a player. Takes a player reference,

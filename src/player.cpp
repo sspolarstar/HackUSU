@@ -32,7 +32,8 @@ void Player::update(float deltaTime, MapManager& mapRef){
 	int row;
 	sf::Vector2u rowLocator;
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
+	|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
 		if (collision_direction.wall[LEFT]) {
 		
@@ -47,7 +48,8 @@ void Player::update(float deltaTime, MapManager& mapRef){
 		}
 	}
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
+	|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
 		if (collision_direction.wall[RIGHT]) {}
 		else {
@@ -59,7 +61,8 @@ void Player::update(float deltaTime, MapManager& mapRef){
             facesRight = true;
 		}		
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
+	|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
 		if (collision_direction.wall[UP]) {}
 		else {
@@ -70,7 +73,8 @@ void Player::update(float deltaTime, MapManager& mapRef){
 			movement.y = movement.y / 3;
 		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
+	|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
 		if (collision_direction.wall[DOWN]) {
 		}

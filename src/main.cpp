@@ -11,6 +11,8 @@
 int main(){
     ////////////////////////VARIABLES
     float deltaTime = 0.0f;
+    float stairTime = 0.0f;
+
     sf::Clock clock;
     sf::RectangleShape timerBackground;
     sf::Text textLabel;
@@ -20,7 +22,11 @@ int main(){
     sf::RenderWindow window(sf::VideoMode(500, 500), "Graduation");
     sf::View view(sf::FloatRect(0, 0, 500, 500));
    
-    Enemy big_bad(0.0,3.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80);
+    // stair enemies
+    std::vector<Enemy> stair_guys(10);
+    std::default_random_engine generator;
+    std::uniform_int_distribution<int> distribution(1,135);
+    auto get_st_x = std::bind ( distribution, generator );
 
     sf::Texture sqlTexture;
     sqlTexture.loadFromFile("assets/img/squrrills.png");
@@ -30,8 +36,6 @@ int main(){
     playerTexture.loadFromFile("assets/img/purpShirt.png");
     Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), playerTexture, {4,3});
     
-
-
     MapManager mapManager;
     mapManager.convertMap(firstMap, player); //get mapSketch from assests/maps/maps.hpp
 
@@ -62,7 +66,9 @@ int main(){
         }
         
         view.reset(sf::FloatRect(float(player.getPosition().x - 250), float(player.getPosition().y - 250), 500, 500));
-        std::cout<<player.getPosition().x << " " << player.getPosition().y <<std::endl;
+
+        // std::cout<<player.getPosition().x << " " << player.getPosition().y <<std::endl;
+        
         timerBackground.setPosition({player.getPosition().x - 248, player.getPosition().y - 248});
         timerText.setPosition({player.getPosition().x - 240, player.getPosition().y - 248});
         window.setView(view);
@@ -72,8 +78,6 @@ int main(){
         player.update(deltaTime, mapManager);
         player.draw(window);
 
-        big_bad.update(deltaTime, player, 200, mapManager);
-        big_bad.draw(window);
         if(!player.gotSql){
             sql.update(deltaTime, player, 200, mapManager);
         }
@@ -83,6 +87,51 @@ int main(){
                 sql.defeat(font, window, {player.getPosition().x - 248, player.getPosition().y + 200});
         }
         sql.draw(window);
+
+        // Handle stairs segments
+        Position player_pos = player.getPosition();
+        // check if they are in the stairs area
+        if ((player_pos.x > 430) && (player_pos.x < 600)) {
+            // begin to increment and update the stair counter
+            stairTime += deltaTime;
+
+            // if they are in the stairs area, check if they are in stage
+            // one
+            if ((player_pos.y > 2250)) {
+                // if the stairTime is greater than 2 then
+                // add a new person on the stairs and reset the timer
+                // std::cout << stairTime << std::endl;
+                if ((stairTime > 0.5) && (stair_guys.size() < 70)) {
+
+                    // set this guys starting position
+                    stair_guys.push_back(Enemy((450 + (float)get_st_x()), 2250,
+                        sf::Vector2f(CELL_SIZE,CELL_SIZE*2), 80));
+                    
+                    // reset the stair time
+                    stairTime = 0.0;
+                }
+
+                // render all of these enemies
+                for (auto &stair_guy : stair_guys) {
+                    // delete guys who are below screen
+                    if (stair_guy.getPosition().y > (player.getPosition().y + 300) &&
+                    stair_guy.getPosition().y > 3300) {
+                        stair_guy.setPosition({stair_guy.getPosition().x, 2250});
+                    }
+                    stair_guy.move_in_dir(deltaTime, {0,1});
+                    stair_guy.draw(window);
+                }
+            } else {
+                stair_guys.clear();
+            }
+
+        }
+        // else empty all the players on the stairs and set the stairtime
+        // to 0
+        else {
+            stair_guys.clear();
+            stairTime = 0.0;
+        }
 
         if(player.hasText){
             window.draw(timerBackground);
