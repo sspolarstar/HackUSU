@@ -14,10 +14,16 @@ int main(){
     float stairTime = 0.0f;
 
     sf::Clock clock;
+
+    int minute;
+    int second;
+
     sf::RectangleShape timerBackground;
     sf::Text textLabel;
     sf::Text timerText;
     sf::Font font;    
+    //player positions for later switch statement
+    int p_x, p_y;
     ///////////////////////CLASSES
     sf::RenderWindow window(sf::VideoMode(500, 500), "Graduation");
     sf::View view(sf::FloatRect(0, 0, 500, 500));
@@ -36,12 +42,24 @@ int main(){
     playerTexture.loadFromFile("assets/img/purpShirt.png");
     Player player(0.0,0.0, sf::Vector2f(CELL_SIZE,CELL_SIZE*2), playerTexture, {4,3});
     
+    sf::Texture riddlerTexture;
+    riddlerTexture.loadFromFile("assets/img/riddlerman.png");
+    sf::RectangleShape riddlerBody;
+    riddlerBody.setPosition({1969.0,2902.9});
+    riddlerBody.setSize({CELL_SIZE, CELL_SIZE*2});
+    riddlerBody.setTexture(&riddlerTexture);
+
     MapManager mapManager;
     mapManager.convertMap(firstMap, player); //get mapSketch from assests/maps/maps.hpp
+
+
+
+
 
     /////////////////////functional asset rendering
     if (!font.loadFromFile("assets/fonts/sansation.ttf"))
         std::cout<<"no font loaded" << std::endl;
+
     timerText.setFont(font);
     timerText.setCharacterSize(20);
     timerText.setFillColor(sf::Color(255,255,255,255));
@@ -54,6 +72,17 @@ int main(){
     //timerBackground.setRotation(12.0);
 
     while (window.isOpen()){
+
+        if(!player.seenIntro){
+            player.introScene(font, window);
+            clock.restart().asSeconds();
+        } else if(!player.seenIntroControls){
+            player.introControls(font, window, {player.getPosition().x - 250, player.getPosition().y - 250});
+            clock.restart().asSeconds();
+        } else if(!player.seenIntroDirections){
+            player.introInstructions(font, window, {player.getPosition().x - 250, player.getPosition().y - 250});
+            clock.restart().asSeconds();            
+        }
         deltaTime = clock.restart().asSeconds();
         player.reduceTimeRemaing(deltaTime);
         sf::Event event;
@@ -75,7 +104,9 @@ int main(){
         window.clear();
         
         mapManager.drawMap(window);
-        player.update(deltaTime, mapManager);
+        if(!player.updateFlag){
+            player.update(deltaTime, mapManager);
+        }
         player.draw(window);
 
         if(!player.gotSql){
@@ -84,7 +115,7 @@ int main(){
         else {
             //you beat the squirl.
             if(!sql.seenDefeat)
-                sql.defeat(font, window, {player.getPosition().x - 248, player.getPosition().y + 200});
+                sql.defeat(font, window, {player.getPosition().x - 248, player.getPosition().y });
         }
         sql.draw(window);
 
@@ -132,12 +163,44 @@ int main(){
             stair_guys.clear();
             stairTime = 0.0;
         }
+        window.draw(riddlerBody);
+        
+
+        
+        //switch statement for the different dialogs and actions
+        //playerPosition.setPosition(floor(player.getPosition().x / 10), floor(player.getPosition().y/10));
+        p_y = floor(player.getPosition().y/10);
+        p_x = floor(player.getPosition().x / 10);
+        switch(p_y){
+            case 289:
+                if(p_x < 204 && p_x > 200){
+                    if(!player.gotRiddler){
+                        player.riddlerScene(font, window, {player.getPosition().x  - 248, player.getPosition().y  + 200});
+                    }
+                }
+                break;
+            default:
+                break;   
+
+        }
 
         if(player.hasText){
             window.draw(timerBackground);
-            timerText.setString(std::to_string(player.getTimeRemaing()));
+            minute = (int)player.getTimeRemaing() / 60;
+            second = (int)player.getTimeRemaing() % 60;
+            if (second >= 10) {
+                timerText.setString(std::to_string(minute) + ":" + std::to_string(second));
+            }
+            else {
+                timerText.setString(std::to_string(minute) + ":0" + std::to_string(second));
+            }
+            
             window.draw(timerText);
         }
+
+
+
+
         //end the game if the timer runs out.
         if(player.getTimeRemaing() <= 0.0f){
                 sf::RectangleShape endscreen;
