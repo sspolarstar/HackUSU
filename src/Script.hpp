@@ -26,7 +26,7 @@ const std::string intro_directions = "You will find all of the necessary \n"
 const std::string win_msg = "Congradualations, you have successfully \n"
 							"graduated! You win! Good luck with the \n"
 							"rest of life!";
-
+const std::string not_win_grad = "Where's your cap and gown??\n TRY AGAIN!";
 const std::string mini_1_intro = "Hehehe, win of game of riddles with me, \n"
 								 "and I will give you a gown completely \n"
 								 "free! In order to win the gown for free, \n"

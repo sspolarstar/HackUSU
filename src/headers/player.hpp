@@ -29,6 +29,11 @@ class Player{
         void riddleTwo(sf::Font &font, sf::RenderWindow& window, Position pos);
         void riddleThree(sf::Font &font, sf::RenderWindow& window, Position pos);
         void riddlerFinished(sf::Font &font, sf::RenderWindow& window, Position pos);
+        void trapMisLead(sf::Font &font,sf::RenderWindow& window, Position pos);
+        void meeting(sf::Font &font,sf::RenderWindow& window, Position pos);
+        void halter(sf::Font &font,sf::RenderWindow& window, Position pos);
+        void kickedOutOfGraduation(sf::Font &font, sf::RenderWindow& window, Position pos);
+        void miniwarn(sf::Font &font, sf::RenderWindow& window, Position pos);
     public:
         bool seenIntro = false;
         bool hasText = 1;
@@ -44,6 +49,10 @@ class Player{
         bool riddleThreeCorrect = false;
         bool riddleTwoReady = false;
         bool riddleThreeReady = false;
+        bool doneTrapMislead = false;
+        bool doneMeeting = false;
+        bool halterDone = false;
+        bool miniwarn1 = false;
         Animation animation;
 
     private:

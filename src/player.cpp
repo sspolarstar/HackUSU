@@ -421,3 +421,158 @@ void Player::riddlerFinished(sf::Font &font,sf::RenderWindow& window, Position p
 		this->gotRiddlerFinished = true;
 		this->updateFlag = false;
 }
+
+void Player::trapMisLead(sf::Font &font,sf::RenderWindow& window, Position pos){
+	{
+	seenIntroControls = true;
+	sf::RectangleShape textBox;
+    textBox.setFillColor(sf::Color(0,0,0,175));
+    textBox.setSize({400, 400});
+    textBox.setOutlineColor(sf::Color::White);
+    textBox.setOutlineThickness(2);
+    textBox.setPosition({pos.x + 50, pos.y +50});
+    window.draw(textBox);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition({pos.x + 65, pos.y + 65});
+    text.setString(trap_mislead + "\npress Enter to Continue");
+    text.setFillColor(sf::Color(255,255,255,255));
+    window.draw(text);
+
+	this->doneTrapMislead = true;
+
+	window.display();
+	while(1){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			break;
+		}
+	}
+	std::this_thread::sleep_for(200ms);
+}
+}
+
+void Player::meeting(sf::Font &font,sf::RenderWindow& window, Position pos){
+	seenIntroControls = true;
+	sf::RectangleShape textBox;
+    textBox.setFillColor(sf::Color(0,0,0,175));
+    textBox.setSize({400, 400});
+    textBox.setOutlineColor(sf::Color::White);
+    textBox.setOutlineThickness(2);
+    textBox.setPosition({pos.x + 50, pos.y +50});
+    window.draw(textBox);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition({pos.x + 65, pos.y + 65});
+    text.setString(trap_speech + "\npress Enter to Continue");
+    text.setFillColor(sf::Color(255,255,255,255));
+    window.draw(text);
+	window.display();
+
+	text.setPosition({pos.x + 165, pos.y + 165});
+	if(this->Time_Remaining > 300){
+		text.setString(trap_lost_time);
+		reduceTimeRemaing(300);
+	} else{
+		text.setString(trap_lost_game);
+	}
+	
+	doneMeeting = true;
+	window.display();
+	while(1){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			break;
+		}
+	}
+	std::this_thread::sleep_for(200ms);
+}
+
+void Player::halter(sf::Font &font,sf::RenderWindow& window, Position pos){
+	seenIntroControls = true;
+	sf::RectangleShape textBox;
+    textBox.setFillColor(sf::Color(0,0,0,175));
+    textBox.setSize({400, 400});
+    textBox.setOutlineColor(sf::Color::White);
+    textBox.setOutlineThickness(2);
+    textBox.setPosition({pos.x + 50, pos.y +50});
+    window.draw(textBox);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition({pos.x + 65, pos.y + 65});
+    text.setString(platform_1 + "\npress Enter to Continue");
+    text.setFillColor(sf::Color(255,255,255,255));
+    window.draw(text);
+
+	halterDone = true;
+
+	window.display();
+	while(1){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			break;
+		}
+	}
+	std::this_thread::sleep_for(200ms);
+}
+
+void Player::miniwarn(sf::Font &font,sf::RenderWindow& window, Position pos){
+	seenIntroControls = true;
+	sf::RectangleShape textBox;
+    textBox.setFillColor(sf::Color(0,0,0,175));
+    textBox.setSize({400, 400});
+    textBox.setOutlineColor(sf::Color::White);
+    textBox.setOutlineThickness(2);
+    textBox.setPosition({pos.x + 50, pos.y +50});
+    window.draw(textBox);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition({pos.x + 65, pos.y + 65});
+    text.setString(mini_2_intro + "\npress Enter to Continue");
+    text.setFillColor(sf::Color(255,255,255,255));
+    window.draw(text);
+
+	miniwarn1 = true;
+
+	window.display();
+	while(1){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			break;
+		}
+	}
+	std::this_thread::sleep_for(200ms);
+}
+
+void Player::kickedOutOfGraduation(sf::Font &font, sf::RenderWindow& window, Position pos){
+	seenIntroControls = true;
+	sf::RectangleShape textBox;
+    textBox.setFillColor(sf::Color(0,0,0,175));
+    textBox.setSize({400, 400});
+    textBox.setOutlineColor(sf::Color::White);
+    textBox.setOutlineThickness(2);
+    textBox.setPosition({pos.x + 50, pos.y +50});
+    window.draw(textBox);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition({pos.x + 65, pos.y + 65});
+    text.setString(not_win_grad + "\npress Enter to Continue");
+    text.setFillColor(sf::Color(255,255,255,255));
+    window.draw(text);
+
+	
+
+	window.display();
+	while(1){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			break;
+		}
+	}
+	std::this_thread::sleep_for(200ms);
+}

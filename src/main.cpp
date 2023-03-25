@@ -6,7 +6,7 @@
 #include "headers/collision.hpp"
 #include "assets/maps/maps.hpp"
 #include "headers/squirrel.hpp"
-
+#include "Script.hpp"
 
 int main(){
     ////////////////////////VARIABLES
@@ -132,7 +132,6 @@ int main(){
         }
         
         view.reset(sf::FloatRect(float(player.getPosition().x - 250), float(player.getPosition().y - 250), 500, 500));
-        std::cout<<player.getPosition().x << " " << player.getPosition().y <<std::endl;
         timerBackground.setPosition({player.getPosition().x - 248, player.getPosition().y - 248});
         timerText.setPosition({player.getPosition().x - 240, player.getPosition().y - 248});
         window.setView(view);
@@ -176,16 +175,71 @@ int main(){
 
         p_y = floor(player.getPosition().y / 10);
         p_x = floor(player.getPosition().x / 10);
-        switch(p_y){
-            case 300:
+
+        if(p_y<302 && p_y>298){
                 if(p_x < 207 && p_x > 200){
                     if(!player.gotRiddler){
                         player.riddlerScene(font, window, {player.getPosition().x  - 248, player.getPosition().y -200});
                     }
                 }
-                break;
-            default:
-                break;   
+        } if(p_y < 326 && p_y >321 ) {
+            if(p_x < 238 && p_x > 236){
+                if(!player.doneTrapMislead){
+                     player.trapMisLead(font, window, {player.getPosition().x  - 248, player.getPosition().y -200});
+                }
+            }
+            if(p_x < 269 && p_x > 267){
+                if(!player.doneMeeting){
+                     player.meeting(font, window, {player.getPosition().x  - 248, player.getPosition().y -200});
+                }
+            }
+        } if(p_y > 328 && p_y < 332){
+            if(p_x < 95 && p_x > 93){
+                if(!player.halterDone){
+                     player.halter(font, window, {player.getPosition().x  - 248, player.getPosition().y -200});
+                }
+            }
+
+        } if(p_y <39 && p_y>36){
+            if(p_x >41 && p_x <60){
+                if(player.gotRiddlerFinished && player.gotSql){
+
+                    //win the game!   
+                        sf::RectangleShape endscreen;
+                        endscreen.setFillColor(sf::Color(0,0,0,125));
+                        endscreen.setPosition({float(player.getPosition().x - 250), float(player.getPosition().y - 250)});
+                        endscreen.setSize({550.0,550.0});
+                        sf::Text endscreenText;
+                        endscreenText.setPosition({float(player.getPosition().x -250), float(player.getPosition().y)});
+                        endscreenText.setString(win_msg);
+                        endscreenText.setFont(font);
+                        endscreenText.setCharacterSize(50);
+                        endscreenText.setFillColor(sf::Color::White);
+
+                        window.draw(endscreen);
+                        window.draw(endscreenText);
+                        window.display();
+                        while(1){
+                            //end game;
+                            while (window.pollEvent(event)){
+                                if (event.type == sf::Event::Closed)
+                                    window.close();
+                                    break;
+                            }
+                            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+                                window.close(); 
+                                break;
+                            }
+                        }
+                } else {
+                    player.kickedOutOfGraduation(font, window,  {player.getPosition().x  - 248, player.getPosition().y -200});
+                }
+            }
+        } if(p_y > 328 && p_y < 332){
+            if(p_x > 150 && p_x < 152)
+            if(!player.miniwarn1){
+                player.miniwarn(font, window,  {player.getPosition().x  - 248, player.getPosition().y -200});
+            }
 
         }
         window.draw(speakerBody);
