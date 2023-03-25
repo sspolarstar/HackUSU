@@ -107,6 +107,41 @@ void MapManager::drawMap(sf::RenderWindow & window){
                     sprite.setTextureRect({ 64, 16, 80, 32 });
                     window.draw(sprite);
                     break;
+                case Cell::dirtbush:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 32, 32, 48, 48 });
+                    window.draw(sprite);
+                    break;
+                case Cell::bench:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 48, 32, 64, 48 });
+                    window.draw(sprite);
+                    break;
+                case Cell::podium:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 64, 32, 80, 48 });
+                    window.draw(sprite);
+                    break;
+                case Cell::brick:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 32, 48, 48, 64 });
+                    window.draw(sprite);
+                    break;
+                case Cell::window:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 48, 48, 64, 64 });
+                    window.draw(sprite);
+                    break;
+                case Cell::sky:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 32, 64, 48, 80 });
+                    window.draw(sprite);
+                    break;
+                case Cell::aggie:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 48, 64, 64, 80 });
+                    window.draw(sprite);
+                    break;
                 default:
                     break;
             }
@@ -177,6 +212,27 @@ void MapManager::convertMap(std::array<std::string, MAX_MAP_HEIGHT>& mapSketch, 
                     break;
                 case '6':
                     map.map[i][j] = Cell::t6;
+                    break;
+                case 'T':
+                    map.map[i][j] = Cell::dirtbush;
+                    break;
+                case 'B':
+                    map.map[i][j] = Cell::bench;
+                    break;
+                case 'P':
+                    map.map[i][j] = Cell::podium;
+                    break;
+                case 'K':
+                    map.map[i][j] = Cell::brick;
+                    break;
+                case 'W':
+                    map.map[i][j] = Cell::window;
+                    break;
+                case 'S':
+                    map.map[i][j] = Cell::sky;
+                    break;
+                case 'I':
+                    map.map[i][j] = Cell::aggie;
                     break;
                 default:
                     break;

@@ -37,6 +37,13 @@ enum class Cell {
     t4,
     t5,
     t6,
+    dirtbush,
+    bench,
+    podium,
+    brick,
+    window,
+    aggie,
+    sky,
 };
 
 
