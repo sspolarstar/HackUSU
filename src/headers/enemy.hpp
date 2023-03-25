@@ -6,6 +6,8 @@
 #include <string>
 #include <cmath>
 
+class MapManager;
+
 class Enemy{
     public:
         Enemy(float x, float y, sf::Vector2f size, float speed);
@@ -18,7 +20,7 @@ class Enemy{
 
         // rendering and update functions
         void update(float deltaTime);
-        void update(float deltaTime, Player &target, float radius);
+        void update(float deltaTime, Player &target, float radius, MapManager &mapRef);
         void draw(sf::RenderWindow &window);
 
         // debugging functionality

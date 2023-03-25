@@ -72,14 +72,12 @@ void Squirrel::update(float deltaTime, Player &target,
         if ((deltaX < 0 && collision_direction.wall[LEFT]) ||
             (deltaX > 0 && collision_direction.wall[RIGHT])) {
                 deltaX = 0.0;
-                deltaY = check_sign(deltaY);
         }
             
 
         if ((deltaY < 0 && collision_direction.wall[UP])||
             (deltaY > 0 && collision_direction.wall[DOWN])) {
                 deltaY = 0.0;
-                deltaX = check_sign(deltaX);
         }
         
         this->position.x += deltaX;
@@ -102,14 +100,12 @@ void Squirrel::update(float deltaTime, Player &target,
         if ((deltaX < 0 && collision_direction.wall[LEFT]) ||
             (deltaX > 0 && collision_direction.wall[RIGHT])) {
                 deltaX = 0.0;
-                deltaY = check_sign(deltaY);
         }
             
 
         if ((deltaY < 0 && collision_direction.wall[UP])||
             (deltaY > 0 && collision_direction.wall[DOWN])) {
                 deltaY = 0.0;
-                deltaX = check_sign(deltaX);
         }
         
         this->position.x += deltaX;

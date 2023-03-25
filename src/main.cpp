@@ -62,7 +62,7 @@ int main(){
         player.update(deltaTime, mapManager);
         player.draw(window);
 
-        big_bad.update(deltaTime, player, 200);
+        big_bad.update(deltaTime, player, 200, mapManager);
         big_bad.draw(window);
 
         sql.update(deltaTime, player, 200, mapManager);

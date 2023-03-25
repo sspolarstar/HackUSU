@@ -1,4 +1,6 @@
 #include "headers/enemy.hpp"
+#include "headers/mapManager.hpp"
+#include "headers/collision.hpp"
 
 /*
 default constructor
@@ -42,7 +44,9 @@ void Enemy::update(float deltaTime) {
 // updates an enemy to target a player. Takes a player reference,
 // a trigger radius, and the timestep. When player is within the given
 // radius, the enemy will move toward the player.
-void Enemy::update(float deltaTime, Player &target, float radius) {
+void Enemy::update(float deltaTime, Player &target,
+        float radius, MapManager &mapRef) {
+    
     // get the direction toward the target
     sf::Vector2f direction(target.getPosition().x - this->position.x,
         target.getPosition().y - this->position.y);
@@ -50,6 +54,9 @@ void Enemy::update(float deltaTime, Player &target, float radius) {
     // get the magnitude of the direction toward the player (sqrt(a^2 + b^2))
     float mag = sqrt(direction.x * direction.x + direction.y * direction.y);
     
+    // calculate the collision
+    Collided collision_direction = map_collision(this->position, mapRef);
+
     // if the player is within the radius
     if (mag < radius) {
         // then set the bad guy to be red
@@ -59,9 +66,24 @@ void Enemy::update(float deltaTime, Player &target, float radius) {
         direction.x = direction.x/mag;
         direction.y = direction.y/mag;
 
-        // move toward the player
-        this->position.x += deltaTime * this->speed * direction.x;
-        this->position.y += deltaTime * this->speed * direction.y;
+        // move away from the player
+        float deltaX = deltaTime * this->speed * direction.x;
+        float deltaY = deltaTime * this->speed * direction.y;
+
+         // check collision errors
+        if ((deltaX < 0 && collision_direction.wall[LEFT]) ||
+            (deltaX > 0 && collision_direction.wall[RIGHT])) {
+                deltaX = 0.0;
+        }
+            
+
+        if ((deltaY < 0 && collision_direction.wall[UP])||
+            (deltaY > 0 && collision_direction.wall[DOWN])) {
+                deltaY = 0.0;
+        }
+        
+        this->position.x += deltaX;
+        this->position.y += deltaY;
         this->body.setPosition(this->position.x, this->position.y);
     }
     // else if the player is not close enough then set the color to white
