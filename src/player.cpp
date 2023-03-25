@@ -3,6 +3,8 @@
 #include "headers/collision.hpp"
 #include "Script.hpp"
 #include <unistd.h>
+#include <thread>
+
 Player::Player(float x, float y, sf::Vector2f size, sf::Texture& texture, sf::Vector2u imageCount):
 animation(texture, imageCount, 0.2f)
 {
@@ -144,6 +146,8 @@ void Player::riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos)
 
 
 void Player::introScene(sf::Font& font, sf::RenderWindow& window){
+	using namespace std::chrono_literals;
+
 	seenIntro = true;
 	window.clear();
 	sf::RectangleShape textBox;
@@ -171,11 +175,13 @@ void Player::introScene(sf::Font& font, sf::RenderWindow& window){
 		}
 	}
 
-	for(int i = 0; i<1000;i++) std::cout<<" " <<std::endl;;
+	std::this_thread::sleep_for(200ms);
 
 }
 
 void Player::introControls(sf::Font& font, sf::RenderWindow& window, Position pos){
+	using namespace std::chrono_literals;
+
 	seenIntroControls = true;
 	sf::RectangleShape textBox;
     textBox.setFillColor(sf::Color(0,0,0,175));
@@ -201,7 +207,8 @@ void Player::introControls(sf::Font& font, sf::RenderWindow& window, Position po
 			break;
 		}
 	}
-	for(int i = 0; i<1000;i++) std::cout<<" " <<std::endl;;
+
+	std::this_thread::sleep_for(200ms);
 }
 
 

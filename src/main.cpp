@@ -152,8 +152,10 @@ int main(){
                     stair_guy.move_in_dir(deltaTime, {0,1});
                     stair_guy.draw(window);
                 }
-            } else {
+            } else if ((player_pos.y < 2250) && (player_pos.y > 2200)) {
                 stair_guys.clear();
+            } else if (player_pos.y < 1150) {
+                std::cout << "stair 2\n";
             }
 
         }
