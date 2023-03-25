@@ -2,11 +2,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
+#include <array>
 //static float Time_Remaining = 900000.0 ;
 
 
 constexpr unsigned char LEFT  = 0;
-constexpr unsigned char Right = 1;
+constexpr unsigned char RIGHT = 1;
 constexpr unsigned char UP    = 2;
 constexpr unsigned char DOWN  = 3;
 
@@ -17,10 +19,27 @@ constexpr unsigned short MAX_MAP_HEIGHT = 300;
 constexpr unsigned short MAX_MAP_WIDTH = 300;
 constexpr unsigned char CELL_SIZE = 16;
 //constexpr unsigned char
-enum class Cell{
+enum class Cell {
     empty,
     wall,
+    stair,
+    grass,
+    Left_rail,
+    Right_rail,
+    concrete,
+    flower,
+    bush,
+
 };
+
+
+struct Collided {
+	bool wall[4] = { 0,0,0,0 };
+	bool enemy[4] = { 0,0,0,0 };
+	bool nextArea[4] = { 0,0,0,0 };
+
+};
+
 
 struct Map{
     int level;

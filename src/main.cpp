@@ -57,9 +57,7 @@ int main(){
         window.clear();
         
         mapManager.drawMap(window);
-        
-        // update and draw methods
-        player.update(deltaTime);
+        player.update(deltaTime, mapManager);
         player.draw(window);
 
         big_bad.update(deltaTime, player, 200);

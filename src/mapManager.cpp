@@ -10,11 +10,17 @@ void MapManager::setMap(Map& map){
 
 void MapManager::drawMap(sf::RenderWindow & window){
     sf::RectangleShape cell;
+    sf::Sprite sprite;
+    sf::Texture testTexture;
+    testTexture.loadFromFile("assets/img/texturemap.png");
+    sprite.setTexture(testTexture);
+    sprite.setTextureRect({ 0,0,16,16 });
+
     cell.setFillColor(sf::Color::Black);
     cell.setOutlineColor(sf::Color::White);
     cell.setOutlineThickness(2.0f);
     cell.setSize({float(CELL_SIZE), float(CELL_SIZE)});
-
+    
     for(int i = 0; i < this->map.map.size(); i++){
         for(int j= 0; j< this->map.map[i].size(); j++){
             switch(this->map.map[j][i]){
@@ -22,8 +28,44 @@ void MapManager::drawMap(sf::RenderWindow & window){
 
                     break;
                 case Cell::wall:
-                    cell.setPosition({float(i*CELL_SIZE), float(j*CELL_SIZE)});
-                    window.draw(cell);
+                    sprite.setTextureRect({ 32, 32, 32, 32 });
+                    sprite.setPosition({float(i*CELL_SIZE), float(j*CELL_SIZE)});
+                    window.draw(sprite);
+                    break;
+                case Cell::stair:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 0, 0, 16, 16});
+                    window.draw(sprite);
+                    break;
+                case Cell::grass:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 16, 0, 32, 16 });
+                    window.draw(sprite);
+                    break;
+                case Cell::Left_rail:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 0, 16, 16, 32 });
+                    window.draw(sprite);
+                    break;
+                case Cell::Right_rail:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 16, 16, 32, 32 });
+                    window.draw(sprite);
+                    break;
+                case Cell::concrete:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 0, 32, 16, 48 });
+                    window.draw(sprite);
+                    break;
+                case Cell::flower:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 16, 32, 32, 48 });
+                    window.draw(sprite);
+                    break;
+                case Cell::bush:
+                    sprite.setPosition({ float(i * CELL_SIZE), float(j * CELL_SIZE) });
+                    sprite.setTextureRect({ 0, 48, 16, 64 });
+                    window.draw(sprite);
                     break;
                 default:
                     break;
@@ -50,6 +92,28 @@ void MapManager::convertMap(std::array<std::string, MAX_MAP_HEIGHT>& mapSketch, 
                     break;
                 case '8':
                     map.map[i][j] = Cell::wall;
+                    break;
+                case '0':
+                    map.map[i][j] = Cell::stair;
+                    break;
+                case 'G':
+                    map.map[i][j] = Cell::grass;
+                    break;
+                case 'L':
+                    map.map[i][j] = Cell::Left_rail;
+                    break;
+                case 'R':
+                    map.map[i][j] = Cell::Right_rail;
+                    break;
+                case 'C':
+                    map.map[i][j] = Cell::concrete;
+                    break;
+                case '*':
+                    map.map[i][j] = Cell::flower;
+                    break;
+                case '#':
+                    map.map[i][j] = Cell::bush;
+                    break;
                 default:
                     break;
             }
