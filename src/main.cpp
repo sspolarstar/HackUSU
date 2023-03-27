@@ -357,8 +357,8 @@ int main(){
             player.riddleThree(font, window, {player.getPosition().x - 248, player.getPosition().y -200 });
         } else if(player.riddleOneCorrect && player.riddleTwoCorrect && player.riddleThreeCorrect && !player.gotRiddlerFinished){
             player.riddlerFinished(font, window, {player.getPosition().x - 248, player.getPosition().y -200 });
-        if(player.readyForInput){
-            // player.getInput(font, window, {player.getPosition().x - 248, player.getPosition().y -200 });
+        } else if(player.readyForInput){
+            player.getInput(font, window, {player.getPosition().x - 248, player.getPosition().y -200 });
         }
 
 
