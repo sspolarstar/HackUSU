@@ -12,7 +12,7 @@ int main(){
     ////////////////////////VARIABLES
     float deltaTime = 0.0f;
     float stairTime = 0.0f;
-
+    
     sf::Clock clock;
 
     int minute;
@@ -26,6 +26,7 @@ int main(){
     int p_x, p_y;
     ///////////////////////CLASSES
     sf::RenderWindow window(sf::VideoMode(500, 500), "Graduation");
+    window.setFramerateLimit(30);
     sf::View view(sf::FloatRect(0, 0, 500, 500));
    
     // stair enemies
@@ -122,13 +123,14 @@ int main(){
         if(!player.seenIntro){
             player.introScene(font, window);
             clock.restart().asSeconds();
-        } else if(!player.seenIntroControls){
+        } else if(!player.seenIntroControls && player.seenIntro){
             player.introControls(font, window, {player.getPosition().x - 250, player.getPosition().y - 250});
             clock.restart().asSeconds();
-        } else if(!player.seenIntroDirections){
+        } else if(!player.seenIntroDirections && player.seenIntro && player.seenIntroControls){
             player.introInstructions(font, window, {player.getPosition().x - 250, player.getPosition().y - 250});
             clock.restart().asSeconds();            
         }
+
         deltaTime = clock.restart().asSeconds();
         player.reduceTimeRemaing(deltaTime);
         sf::Event event;

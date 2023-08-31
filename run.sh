@@ -1,11 +1,6 @@
-#! /bin/bash
-
-cd src
-
+`#! /bin/bash
+cd src/
 rm main
-
 make
-
 rm *.o
-
-./main
+./main`

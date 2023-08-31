@@ -2,7 +2,6 @@
 #include "headers/mapManager.hpp"
 #include "headers/collision.hpp"
 #include "Script.hpp"
-#include <unistd.h>
 #include <thread>
 using namespace std::chrono_literals;
 
@@ -158,7 +157,7 @@ void Player::riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos)
 			break;
 			}
 		}
-		std::this_thread::sleep_for(200ms);
+		sf::sleep(sf::milliseconds(200));
 	text.setString(riddle_1 + "\npress Enter to Continue.");
 	text.setPosition({pos.x + 10, pos.y + 235});
 	window.draw(text);
@@ -169,7 +168,7 @@ void Player::riddlerScene(sf::Font &font,sf::RenderWindow& window, Position pos)
 			}
 		}
 
-		std::this_thread::sleep_for(200ms);	
+		sf::sleep(sf::milliseconds(200));	
 		readyForInput = true;
 }
 
@@ -195,7 +194,7 @@ void Player::introScene(sf::Font& font, sf::RenderWindow& window){
     text.setString(intro_story + "\npress Enter to Continue");
     text.setFillColor(sf::Color(255,255,255,255));
     window.draw(text);
-
+	
 	
 
 	window.display();
@@ -205,7 +204,7 @@ void Player::introScene(sf::Font& font, sf::RenderWindow& window){
 		}
 	}
 
-	std::this_thread::sleep_for(200ms);
+	sf::sleep(sf::milliseconds(200));
 
 }
 
@@ -238,7 +237,7 @@ void Player::introControls(sf::Font& font, sf::RenderWindow& window, Position po
 		}
 	}
 
-	std::this_thread::sleep_for(200ms);
+	sf::sleep(sf::milliseconds(200));
 }
 
 void Player::send_back_down_stairs(float level) {
@@ -335,30 +334,31 @@ sf::Event event;
 			gotRiddler = riddleOneCorrect;
 }
 
-void Player::riddleTwo(sf::Font &font,sf::RenderWindow& window, Position pos){
+void Player::riddleTwo(sf::Font& font, sf::RenderWindow& window, Position pos) {
 	this->updateFlag = true;
-    sf::RectangleShape textBox;
-    textBox.setFillColor(sf::Color(0,0,0,125));
-    textBox.setSize({480, 465});
-    textBox.setOutlineColor(sf::Color::White);
-    textBox.setOutlineThickness(2);
-    textBox.setPosition({pos.x, pos.y - 45});
-    window.draw(textBox);
+	sf::RectangleShape textBox;
+	textBox.setFillColor(sf::Color(0, 0, 0, 125));
+	textBox.setSize({ 480, 465 });
+	textBox.setOutlineColor(sf::Color::White);
+	textBox.setOutlineThickness(2);
+	textBox.setPosition({ pos.x, pos.y - 45 });
+	window.draw(textBox);
 
-    sf::Text text;
-    text.setFont(font);
-    text.setCharacterSize(20);
-    text.setPosition({pos.x + 40, pos.y - 35});
-    text.setString( riddle_right + "\npress Enter to Continue.");
-    text.setFillColor(sf::Color(255,255,255,255));
-    window.draw(text);
+	sf::Text text;
+	text.setFont(font);
+	text.setCharacterSize(20);
+	text.setPosition({ pos.x + 40, pos.y - 35 });
+	text.setString(riddle_right + "\npress Enter to Continue.");
+	text.setFillColor(sf::Color(255, 255, 255, 255));
+	window.draw(text);
 	window.display();
-		while(1){
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+	while (1) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
 			break;
-			}
 		}
-		std::this_thread::sleep_for(200ms);
+	}
+	
+	sf::sleep(sf::milliseconds(200));
 	text.setString(riddle_3 + "\npress Enter to Continue.");
 	text.setPosition({pos.x + 10, pos.y + 235});
 	window.draw(text);
@@ -369,7 +369,7 @@ void Player::riddleTwo(sf::Font &font,sf::RenderWindow& window, Position pos){
 			}
 		}
 		using namespace std::chrono_literals;
-		std::this_thread::sleep_for(200ms);
+		sf::sleep(sf::milliseconds(200));
 		riddleTwoReady = false;
 		readyForInput = true;
 }
@@ -397,7 +397,7 @@ void Player::riddleThree(sf::Font &font,sf::RenderWindow& window, Position pos){
 			break;
 			}
 		}
-		std::this_thread::sleep_for(200ms);
+		sf::sleep(sf::milliseconds(200));
 	text.setString(riddle_2 + "\npress Enter to Continue.");
 	text.setPosition({pos.x + 10, pos.y + 135});
 	window.draw(text);
@@ -408,7 +408,7 @@ void Player::riddleThree(sf::Font &font,sf::RenderWindow& window, Position pos){
 			}
 		}
 		using namespace std::chrono_literals;
-		std::this_thread::sleep_for(200ms);
+		sf::sleep(sf::milliseconds(200));
 		riddleThreeReady = false;
 		readyForInput = true;
 }
@@ -436,7 +436,7 @@ void Player::riddlerFinished(sf::Font &font,sf::RenderWindow& window, Position p
 			break;
 			}
 		}
-		std::this_thread::sleep_for(200ms);
+		sf::sleep(sf::milliseconds(200));
 	text.setString(mini_1_completion + "\npress Enter to Continue.");
 	text.setPosition({pos.x + 10, pos.y + 135});
 	window.draw(text);
@@ -447,7 +447,7 @@ void Player::riddlerFinished(sf::Font &font,sf::RenderWindow& window, Position p
 			}
 		}
 		
-		std::this_thread::sleep_for(200ms);
+		sf::sleep(sf::milliseconds(200));
 		riddleThreeReady = false;
 		readyForInput = false;
 		this->gotRiddlerFinished = true;
@@ -481,7 +481,7 @@ void Player::trapMisLead(sf::Font &font,sf::RenderWindow& window, Position pos){
 			break;
 		}
 	}
-	std::this_thread::sleep_for(200ms);
+	sf::sleep(sf::milliseconds(200));
 }
 }
 
@@ -519,7 +519,7 @@ void Player::meeting(sf::Font &font,sf::RenderWindow& window, Position pos){
 			break;
 		}
 	}
-	std::this_thread::sleep_for(200ms);
+	sf::sleep(sf::milliseconds(200));
 }
 
 void Player::halter(sf::Font &font,sf::RenderWindow& window, Position pos){
@@ -548,7 +548,7 @@ void Player::halter(sf::Font &font,sf::RenderWindow& window, Position pos){
 			break;
 		}
 	}
-	std::this_thread::sleep_for(200ms);
+	sf::sleep(sf::milliseconds(200));
 }
 
 void Player::miniwarn(sf::Font &font,sf::RenderWindow& window, Position pos){
@@ -577,7 +577,7 @@ void Player::miniwarn(sf::Font &font,sf::RenderWindow& window, Position pos){
 			break;
 		}
 	}
-	std::this_thread::sleep_for(200ms);
+	sf::sleep(sf::milliseconds(200));
 }
 
 void Player::kickedOutOfGraduation(sf::Font &font, sf::RenderWindow& window, Position pos){
@@ -605,5 +605,5 @@ void Player::kickedOutOfGraduation(sf::Font &font, sf::RenderWindow& window, Pos
 			break;
 		}
 	}
-	std::this_thread::sleep_for(200ms);
+	sf::sleep(sf::milliseconds(200));
 }

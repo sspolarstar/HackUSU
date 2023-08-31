@@ -21,7 +21,7 @@ Collided map_collision(Position pos, MapManager& mapRef){
 				y = static_cast<int>(pos.y / CELL_SIZE);
 				break;
 			case UP:
-				x = static_cast<int>((pos.x -2) / CELL_SIZE);
+				x = static_cast<int>((pos.x - 2) / CELL_SIZE);
 				y = static_cast<int>((pos.y - 4 ) / CELL_SIZE);
 				break;
 			case DOWN:
